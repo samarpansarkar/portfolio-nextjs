@@ -1,5 +1,6 @@
 "use client";
 import Experience from "@/components/Experience";
+import GitHubStats from "@/components/GitHubStats";
 import Image from "next/image";
 import { GoDotFill } from "react-icons/go";
 import { LuUser } from "react-icons/lu";
@@ -90,6 +91,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <GitHubStats username="samarpansarkar" />
       <Experience />
     </div>
   );
