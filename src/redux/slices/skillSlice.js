@@ -2,7 +2,7 @@ const { default: API } = require("@/utils/AxiosInstance");
 const { createSlice } = require("@reduxjs/toolkit");
 const { createAsyncThunk } = require("@reduxjs/toolkit");
 
-const fetchSkills = createAsyncThunk(
+export const fetchSkills = createAsyncThunk(
   "skills/fetch",
   async (_, { rejectWithValue }) => {
     try {
