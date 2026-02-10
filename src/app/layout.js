@@ -21,6 +21,11 @@ export const metadata = {
     "Portfolio of Samarpan Sarkar, a Frontend Engineer specializing in React, Tailwind CSS, and modern web technologies.",
   keywords:
     "Samarpan Sarkar, Frontend Engineer, React Developer, Web Developer, Portfolio",
+  icons: {
+    icon: "/icons/picofme.png",
+    shortcut: "/icons/picofme.png",
+    apple: "/icons/picofme.png",
+  },
 };
 
 export default function RootLayout({ children }) {
