@@ -9,63 +9,71 @@
 @tailwind utilities; */
 
 :root {
-  /* Light Mode */
-  --bg-primary: #f8fafc; /* Slate 50 */
-  --bg-secondary: #f1f5f9; /* Slate 100 */
-  --text-primary: #1e293b; /* Slate 800 - Darker for better contrast */
-  --text-secondary: #475569; /* Slate 600 */
-  --accent-primary: #6366f1; /* Indigo 500 */
-  --accent-secondary: #ec4899; /* Pink 500 */
-  --card-bg: rgba(
-    255,
-    255,
-    255,
-    0.9
-  ); /* More opaque white for better readability */
-  --nav-bg: rgba(255, 255, 255, 0.85);
-  --gradient-text: linear-gradient(
-    to right,
-    #4f46e5,
-    #db2777
-  ); /* Slightly darker gradient for text */
-  --gradient-bg: linear-gradient(
-    135deg,
-    #f8fafc 0%,
-    #e0f2fe 100%
-  ); /* Softer background gradient */
+  /* Light Mode - Glassmorphism */
+  --bg-primary: #f5f5f7;
+  --bg-secondary: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --accent-primary: #0071e3; /* Apple Blue */
+  --accent-secondary: #5e5ce6; /* Purple */
+
+  /* Glass Panels */
+  --card-bg: rgba(255, 255, 255, 0.65);
+  --nav-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.1);
+
+  --gradient-text: linear-gradient(to right, #0071e3, #5e5ce6);
+  --gradient-bg:
+    radial-gradient(circle at top left, #e0e7ff, transparent 50%),
+    radial-gradient(circle at bottom right, #dbeafe, transparent 50%), #f5f5f7;
 }
 
 [data-theme="dark"] {
-  /* Dark Mode */
-  --bg-primary: #0f172a; /* Slate 900 */
-  --bg-secondary: #1e293b; /* Slate 800 */
-  --text-primary: #f8fafc; /* Slate 50 */
-  --text-secondary: #cbd5e1; /* Slate 300 */
-  --accent-primary: #818cf8; /* Indigo 400 */
-  --accent-secondary: #f472b6; /* Pink 400 */
-  --card-bg: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity */
-  --nav-bg: rgba(15, 23, 42, 0.7);
-  --gradient-text: linear-gradient(to right, #818cf8, #f472b6);
-  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  /* Dark Mode - Obsidian Glass */
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --accent-primary: #38bdf8; /* Electric Sky */
+  --accent-secondary: #818cf8; /* Violet */
+
+  /* Glass Panels */
+  --card-bg: rgba(20, 20, 20, 0.4);
+  --nav-bg: rgba(0, 0, 0, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --gradient-text: linear-gradient(to right, #38bdf8, #818cf8);
+  --gradient-bg:
+    radial-gradient(circle at top left, #2e1065, transparent 40%),
+    radial-gradient(circle at bottom right, #0f766e, transparent 40%), #000000;
 }
 
 body {
   background: var(--gradient-bg);
-  background-attachment: fixed; /* Parallax-like effect */
+  background-attachment: fixed;
   color: var(--text-primary);
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-jakarta), sans-serif;
   overflow-x: hidden;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.5s ease-in-out,
+    color 0.3s ease;
 }
 
 @layer utilities {
   .glass {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  /* For heavier glass effects (e.g., Modals, Navbar) */
+  .glass-heavy {
+    background: var(--nav-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-bottom: 1px solid var(--glass-border);
   }
 
   .glass-nav {
@@ -80,5 +88,65 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Premium Entrance Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up-delay-1 {
+    animation: slideUp 0.8s ease-out 0.1s forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-up-delay-2 {
+    animation: slideUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-up-delay-3 {
+    animation: slideUp 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+}
+
+/* Keyframes for premium animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

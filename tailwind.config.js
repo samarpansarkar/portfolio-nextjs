@@ -16,8 +16,7 @@ export default {
         "gradient-text": "var(--gradient-text)",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        rubik: ["Rubik", "sans-serif"],
+        jakarta: ["var(--font-jakarta)", "sans-serif"],
       },
       keyframes: {
         "fade-in-up": {

@@ -49,7 +49,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "glass-nav py-3" : "py-5"}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 animate-fade-in ${scrolled ? "glass-nav py-3" : "py-5"}`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
         <Link
@@ -73,7 +73,7 @@ const Navbar = () => {
           ))}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-white/10 transition-colors text-slate-400 hover:text-white"
+            className="p-2 rounded-full hover:bg-white/10 transition-colors text-secondary hover:text-primary"
             aria-label="Toggle Theme"
           >
             {theme === "dark" ? <LuSun size={20} /> : <LuMoon size={20} />}
@@ -89,7 +89,7 @@ const Navbar = () => {
             {theme === "dark" ? <LuSun size={20} /> : <LuMoon size={20} />}
           </button>
           <button
-            className="text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+            className="text-primary p-2 hover:bg-white/10 rounded-full transition-colors"
             onClick={() => setNav(!nav)}
           >
             {nav ? <LuX size={24} /> : <LuMenu size={24} />}

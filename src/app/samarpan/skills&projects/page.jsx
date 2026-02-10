@@ -47,7 +47,7 @@ const SkillsProjects = () => {
 
   if (sLoading || pLoading) {
     return (
-      <div className="text-text-primary text-center py-20">Loading...</div>
+      <div className="text-primary text-center py-20">Loading...</div>
     );
   }
 
@@ -58,7 +58,7 @@ const SkillsProjects = () => {
           <div className="p-3 bg-accent-primary/10 rounded-full">
             <LuLightbulb className="text-accent-primary" size={24} />
           </div>
-          <h2 className="text-4xl font-bold text-text-primary">
+          <h2 className="text-4xl font-bold text-primary">
             Technical <span className="text-accent-secondary">Skills</span>
           </h2>
         </div>
@@ -79,7 +79,7 @@ const SkillsProjects = () => {
             <div className="p-3 bg-accent-secondary/10 rounded-full">
               <LuLightbulb className="text-accent-secondary" size={24} />
             </div>
-            <h2 className="text-4xl font-bold text-text-primary">
+            <h2 className="text-4xl font-bold text-primary">
               Featured <span className="text-accent-primary">Projects</span>
             </h2>
           </div>
@@ -89,11 +89,10 @@ const SkillsProjects = () => {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  filter === cat
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
                     ? "bg-accent-primary text-white shadow-lg shadow-accent-primary/25"
-                    : "bg-card-bg text-text-secondary hover:bg-accent-primary/10 hover:text-accent-primary border border-slate-700/10"
-                }`}
+                    : "glass text-secondary hover:bg-accent-primary/10 hover:text-accent-primary border border-primary/10"
+                  }`}
               >
                 {cat}
               </button>
@@ -105,7 +104,7 @@ const SkillsProjects = () => {
           {filteredProjects.map((item, index) => (
             <div
               key={item._id}
-              className="group relative rounded-xl overflow-hidden bg-card-bg border border-slate-700/10 hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up shadow-lg shadow-slate-900/5"
+              className="group relative rounded-xl overflow-hidden glass border border-primary/10 hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up shadow-lg"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="aspect-video overflow-hidden">
@@ -121,14 +120,14 @@ const SkillsProjects = () => {
 
               <div className="p-6 space-y-4">
                 <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold text-text-primary group-hover:text-accent-primary transition-colors">
+                  <h3 className="text-xl font-bold text-primary group-hover:text-accent-primary transition-colors">
                     {item.name}
                   </h3>
-                  <span className="text-xs font-medium px-2 py-1 rounded bg-bg-secondary text-text-secondary">
+                  <span className="text-xs font-medium px-2 py-1 rounded bg-primary/5 text-secondary">
                     {item.category}
                   </span>
                 </div>
-                <p className="text-sm text-text-secondary font-mono bg-bg-secondary p-2 rounded">
+                <p className="text-sm text-secondary font-mono bg-primary/5 p-2 rounded">
                   {item.stack.join(", ")}
                 </p>
 
@@ -145,7 +144,7 @@ const SkillsProjects = () => {
                     href={item.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center py-2 rounded-lg border border-slate-600/20 text-text-secondary hover:bg-bg-secondary hover:text-text-primary transition-colors"
+                    className="flex-1 text-center py-2 rounded-lg border border-primary/20 text-secondary hover:bg-primary/5 hover:text-primary transition-colors"
                   >
                     GitHub
                   </a>

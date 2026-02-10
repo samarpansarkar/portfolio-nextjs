@@ -45,33 +45,33 @@ const Contact = () => {
     <div className="min-h-[calc(100vh-100px)] flex items-center justify-center py-12 animate-fade-in-up">
       <div className="w-full max-w-4xl flex flex-col md:flex-row gap-12">
         {/* Contact Info */}
-        <div className="w-full md:w-1/2 space-y-8">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-800/50 rounded-full border border-slate-700">
+        <div className="w-full md:w-1/2 space-y-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
+          <div className="inline-flex items-center space-x-2 px-4 py-2 glass rounded-full border border-primary/10">
             <LuPhone className="text-accent-primary" size={18} />
-            <span className="text-sm font-medium text-slate-300">Contact</span>
+            <span className="text-sm font-medium text-secondary">Contact</span>
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">
+            <h1 className="text-4xl md:text-5xl font-bold text-primary">
               Le&#39;s Work <br />
               <span className="text-accent-secondary">Together</span>
             </h1>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg text-secondary">
               Have a project in mind or just want to say hi? I&#39;d love to
               hear from you.
             </p>
           </div>
 
           <div className="space-y-6">
-            <div className="flex items-center space-x-4 p-4 bg-slate-800/30 rounded-xl border border-slate-700/50">
+            <div className="flex items-center space-x-4 p-4 glass rounded-xl border border-primary/10 animate-slide-up" style={{ animationDelay: '200ms' }}>
               <div className="p-3 bg-accent-primary/10 rounded-full">
                 <LuMail className="text-accent-primary" size={24} />
               </div>
               <div>
-                <p className="text-sm text-slate-400">Email me at</p>
+                <p className="text-sm text-secondary">Email me at</p>
                 <a
                   href="mailto:samarpansarkar2005@gmail.com"
-                  className="text-lg font-medium text-white hover:text-accent-primary transition-colors"
+                  className="text-lg font-medium text-primary hover:text-accent-primary transition-colors"
                 >
                   samarpansarkar2005@gmail.com
                 </a>
@@ -81,25 +81,25 @@ const Contact = () => {
         </div>
 
         {/* Contact Form */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 animate-slide-up" style={{ animationDelay: '300ms' }}>
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 bg-slate-800/20 p-8 rounded-2xl border border-slate-700/30 backdrop-blur-sm"
+            className="space-y-6 glass p-8 rounded-2xl border border-primary/10 backdrop-blur-sm"
           >
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Name</label>
+              <label className="text-sm font-medium text-secondary">Name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg focus:outline-none focus:border-accent-primary text-white placeholder-slate-500 transition-colors"
+                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors"
                 placeholder="John Doe"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">
+              <label className="text-sm font-medium text-secondary">
                 Email
               </label>
               <input
@@ -107,13 +107,13 @@ const Contact = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg focus:outline-none focus:border-accent-primary text-white placeholder-slate-500 transition-colors"
+                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors"
                 placeholder="john@example.com"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">
+              <label className="text-sm font-medium text-secondary">
                 Message
               </label>
               <textarea
@@ -121,7 +121,7 @@ const Contact = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows="4"
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg focus:outline-none focus:border-accent-primary text-white placeholder-slate-500 transition-colors resize-none"
+                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors resize-none"
                 placeholder="Tell me about your project..."
               />
             </div>
@@ -129,7 +129,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full py-4 bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-4 bg-linear-to-r from-accent-primary to-accent-secondary text-white font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 disabled:opacity-50"
             >
               {status === "sending" ? (
                 <span>Sending...</span>
