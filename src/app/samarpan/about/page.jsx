@@ -1,4 +1,5 @@
 "use client";
+import { BackToTop } from "@/components/BackToTop";
 import Experience from "@/components/Experience";
 import GitHubStats from "@/components/GitHubStats";
 import Image from "next/image";
@@ -93,6 +94,7 @@ const About = () => {
       </div>
       <GitHubStats username="samarpansarkar" />
       <Experience />
+      <BackToTop />
     </div>
   );
 };
