@@ -1,10 +1,27 @@
+"use client";
 import Github from "@/components/Github";
 import Resume from "@/components/Resume";
+import API from "@/utils/AxiosInstance";
 import Image from "next/image";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { FaXTwitter } from "react-icons/fa6";
 import { LuFacebook, LuInstagram, LuLinkedin } from "react-icons/lu";
 
 const Home = () => {
+  useEffect(() => {
+    async function checkBackend() {
+      try {
+        let res = await API.get("/");
+        if (res) {
+          toast.success("Backend connection succefull!!");
+        }
+      } catch (error) {
+        toast.error("Backend not working!!", error.message);
+      }
+    }
+    checkBackend();
+  }, []);
   return (
     <div className="flex flex-col md:flex-row items-center justify-between min-h-[calc(100vh-100px)]">
       <div className="w-full md:w-1/2 space-y-8 text-center md:text-left animate-fade-in-up">
