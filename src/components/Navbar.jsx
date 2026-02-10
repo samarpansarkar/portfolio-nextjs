@@ -19,17 +19,25 @@ const Navbar = () => {
 
   const navLinks = [
     { path: "/", label: "Home", icon: <LuHouse size={20} /> },
-    { path: "/about", icon: <LuUser size={20} />, label: "About" },
+    { path: "/samarpan/about", icon: <LuUser size={20} />, label: "About" },
     {
-      path: "/skills&projects",
+      path: "/samarpan/skills&projects",
       icon: <LuLightbulb size={20} />,
       label: "skills & projects",
     },
-    { path: "/contact", icon: <LuPhone size={20} />, label: "Contact" },
-    { path: "/admin/login", icon: <LuLock size={20} />, label: "Admin" },
+    {
+      path: "/samarpan/contact",
+      icon: <LuPhone size={20} />,
+      label: "Contact",
+    },
+    {
+      path: "/samarpan/admin/login",
+      icon: <LuLock size={20} />,
+      label: "Admin",
+    },
   ];
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
