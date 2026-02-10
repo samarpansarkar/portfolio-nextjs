@@ -10,11 +10,15 @@ import { LuFacebook, LuInstagram, LuLinkedin } from "react-icons/lu";
 
 const Home = () => {
   useEffect(() => {
+    const alreadyChecked = sessionStorage.getItem("backendHealthChecked");
+
+    if (alreadyChecked) return;
     async function checkBackend() {
       try {
         let res = await API.get("/");
         if (res) {
-          toast.success("Backend connection succefull!!");
+          toast.success("Backend connection successful!!");
+          sessionStorage.setItem("backendHealthChecked", "true");
         }
       } catch (error) {
         toast.error("Backend not working!!", error.message);
