@@ -14,15 +14,6 @@ export const fetchSkills = createAsyncThunk(
       );
     }
   },
-  //!Request caching condition (avoid double fetch)
-  {
-    condition: (_, { getState }) => {
-      const { skills } = getState();
-
-      if (skills.loading) return false;
-      if (skills.projects.length) return false;
-    },
-  },
 );
 
 const initialState = {
@@ -43,7 +34,7 @@ const skillSlice = createSlice({
       })
       .addCase(fetchSkills.fulfilled, (state, action) => {
         state.loading = false;
-        state.projects = action.payload;
+        state.skills = action.payload;
       })
       .addCase(fetchSkills.rejected, (state, action) => {
         state.loading = false;

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 const SkillSection = ({ title, skills }) => (
@@ -11,6 +12,8 @@ const SkillSection = ({ title, skills }) => (
           <div className="absolute -inset-0.5 bg-linear-to-r from-accent-primary to-accent-secondary rounded-lg blur opacity-20 group-hover:opacity-75 transition duration-500"></div>
           <div className="relative bg-card-bg rounded-lg p-3 hover:scale-110 transition-transform duration-300 border border-slate-700/10">
             <Image
+              width={100}
+              height={100}
               src={skill.icon}
               alt={skill.name}
               className="w-10 h-10 object-contain"

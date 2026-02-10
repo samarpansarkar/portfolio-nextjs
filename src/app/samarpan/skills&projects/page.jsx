@@ -5,7 +5,6 @@ import { fetchProjects } from "@/redux/slices/ProjectSlice";
 import { fetchSkills } from "@/redux/slices/skillSlice";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { LuLightbulb } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +19,7 @@ const SkillsProjects = () => {
     loading: sLoading,
     error: sError,
   } = useSelector((state) => state.skills);
+
   const {
     projects,
     loading: pLoading,
@@ -28,18 +28,10 @@ const SkillsProjects = () => {
 
   useEffect(() => {
     async function loadSkillsAndProjects() {
-      try {
-        await Promise.allSettled([
-          dispatch(fetchSkills()),
-          dispatch(fetchProjects()),
-        ]);
-      } catch (error) {
-        const message = error.message;
-        toast.error(
-          "Something went wrong while loading data. Please try again later. " +
-            message,
-        );
-      }
+      await Promise.allSettled([
+        dispatch(fetchSkills()),
+        dispatch(fetchProjects()),
+      ]);
     }
     loadSkillsAndProjects();
   }, [dispatch]);
@@ -49,7 +41,6 @@ const SkillsProjects = () => {
       ? projects
       : projects.filter((project) => project.category === filter);
 
-  // Group skills by category
   const webSkills = skills.filter((s) => s.category === "Web Development");
   const languageSkills = skills.filter((s) => s.category === "Languages");
   const toolSkills = skills.filter((s) => s.category === "Tools & Others");
@@ -62,7 +53,6 @@ const SkillsProjects = () => {
 
   return (
     <div className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
-      {/* Skills Section */}
       <div className="space-y-12">
         <div className="flex items-center space-x-4">
           <div className="p-3 bg-accent-primary/10 rounded-full">
@@ -122,6 +112,9 @@ const SkillsProjects = () => {
                 <Image
                   src={item.image}
                   alt={item.name}
+                  loading="eager"
+                  width={500}
+                  height={300}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

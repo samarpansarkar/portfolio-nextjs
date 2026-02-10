@@ -1,12 +1,12 @@
 import { dbConnect } from "@/db/dbConnect";
-import Skill from "@/models/skill";
+import Skills from "@/models/skills";
 
 import { NextResponse } from "next/server";
 
 export async function GET() {
   await dbConnect();
 
-  const skills = await Skill.find();
+  const skills = await Skills.find();
 
   return NextResponse.json({ data: skills }, { status: 200 });
 }
@@ -16,6 +16,6 @@ export async function POST(req) {
 
   const body = await req.json();
 
-  const skill = await Skill.create(body);
+  const skill = await Skills.create(body);
   return NextResponse.json({ data: skill }, { status: 201 });
 }

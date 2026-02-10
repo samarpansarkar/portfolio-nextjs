@@ -13,15 +13,6 @@ export const fetchProjects = createAsyncThunk(
       );
     }
   },
-  //!Request caching condition (avoid double fetch)
-  {
-    condition: (_, { getState }) => {
-      const { projects } = getState();
-
-      if (projects.loading) return false;
-      if (projects.projects.length) return false;
-    },
-  },
 );
 
 const initialState = {
