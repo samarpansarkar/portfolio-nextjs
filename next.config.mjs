@@ -10,6 +10,15 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
   },
+  async redirects() {
+    return [
+      {
+        source: "/admin",
+        destination: "/samarpan/admin/login",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
