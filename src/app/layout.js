@@ -1,3 +1,4 @@
+import StoreProvider from "@/redux/StoreProvider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,9 +24,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col relative`}
       >
-        <main className="grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
-          {children}
-        </main>
+        <StoreProvider>
+          <main className="grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
+            {children}
+          </main>
+        </StoreProvider>
       </body>
     </html>
   );
