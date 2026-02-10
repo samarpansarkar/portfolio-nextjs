@@ -1,5 +1,6 @@
 "use client";
 
+import { BackToTop } from "@/components/BackToTop";
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { LuMail, LuPhone, LuSend } from "react-icons/lu";
@@ -9,9 +10,40 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
+  const [errors, setErrors] = useState({});
+
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (value && !validateEmail(value)) {
+      setErrors(prev => ({ ...prev, email: "Please enter a valid email address" }));
+    } else {
+      setErrors(prev => ({ ...prev, email: "" }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validation
+    const newErrors = {};
+    if (!name.trim()) newErrors.name = "Name is required";
+    if (!email.trim()) newErrors.email = "Email is required";
+    else if (!validateEmail(email)) newErrors.email = "Invalid email format";
+    if (!message.trim()) newErrors.message = "Message is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setStatus("sending");
 
     const SERVICE_ID = "service_k57rv1a";
@@ -145,6 +177,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
+      <BackToTop />
     </div>
   );
 };
