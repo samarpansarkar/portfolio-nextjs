@@ -125,9 +125,10 @@ const Contact = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors"
+                className={`w-full px-4 py-3 glass border ${errors.name ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors`}
                 placeholder="John Doe"
               />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
             </div>
 
             <div className="space-y-2">
@@ -138,10 +139,11 @@ const Contact = () => {
                 type="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors"
+                onChange={handleEmailChange}
+                className={`w-full px-4 py-3 glass border ${errors.email ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors`}
                 placeholder="john@example.com"
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
 
             <div className="space-y-2">
@@ -153,9 +155,10 @@ const Contact = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows="4"
-                className="w-full px-4 py-3 glass border border-primary/10 rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors resize-none"
+                className={`w-full px-4 py-3 glass border ${errors.message ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors resize-none`}
                 placeholder="Tell me about your project..."
               />
+              {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
             </div>
 
             <button

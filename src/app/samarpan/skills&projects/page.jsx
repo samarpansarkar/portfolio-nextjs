@@ -1,5 +1,6 @@
-"use client";
-
+"use client"
+import { BackToTop } from "@/components/BackToTop";
+import { SkeletonCard, SkillsSkeleton } from "@/components/Skeletons";
 import SkillSection from "@/components/SkillSection";
 import { fetchProjects } from "@/redux/slices/ProjectSlice";
 import { fetchSkills } from "@/redux/slices/skillSlice";
@@ -47,7 +48,29 @@ const SkillsProjects = () => {
 
   if (sLoading || pLoading) {
     return (
-      <div className="text-primary text-center py-20">Loading...</div>
+      <div className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
+        <div className="flex items-center gap-2">
+          <LuLightbulb className="text-accent-primary" size={32} />
+          <h1 className="text-4xl font-bold text-primary">
+            Skills & <span className="text-accent-secondary">Projects</span>
+          </h1>
+        </div>
+
+        {/* Skills Skeleton */}
+        <div className="space-y-12">
+          <SkillsSkeleton />
+          <SkillsSkeleton />
+          <SkillsSkeleton />
+        </div>
+
+        {/* Projects Skeleton */}
+        <div className="space-y-8">
+          <div className="h-10 bg-primary/10 rounded w-64 animate-pulse"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => <SkeletonCard key={i} />)}
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -90,8 +113,8 @@ const SkillsProjects = () => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
-                    ? "bg-accent-primary text-white shadow-lg shadow-accent-primary/25"
-                    : "glass text-secondary hover:bg-accent-primary/10 hover:text-accent-primary border border-primary/10"
+                  ? "bg-accent-primary text-white shadow-lg shadow-accent-primary/25"
+                  : "glass text-secondary hover:bg-accent-primary/10 hover:text-accent-primary border border-primary/10"
                   }`}
               >
                 {cat}
@@ -127,9 +150,18 @@ const SkillsProjects = () => {
                     {item.category}
                   </span>
                 </div>
-                <p className="text-sm text-secondary font-mono bg-primary/5 p-2 rounded">
-                  {item.stack.join(", ")}
-                </p>
+
+                {/* Tech Stack Badges */}
+                <div className="flex flex-wrap gap-2">
+                  {item.stack.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="px-3 py-1 text-xs font-medium rounded-full glass border border-accent-primary/20 text-accent-primary hover:border-accent-primary/50 hover:bg-accent-primary/10 transition-all"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
 
                 <div className="flex gap-4 pt-2">
                   <a
@@ -154,6 +186,7 @@ const SkillsProjects = () => {
           ))}
         </div>
       </div>
+      <BackToTop />
     </div>
   );
 };
