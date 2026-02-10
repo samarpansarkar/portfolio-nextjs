@@ -7,7 +7,7 @@ const API = axios.create({
   },
 });
 
-AxiosInstance.interceptors.request.use(
+API.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
@@ -22,7 +22,7 @@ AxiosInstance.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-AxiosInstance.interceptors.response.use(
+API.interceptors.response.use(
   (response) => response.data,
   (error) => {
     console.error("API Error:", error.response?.data || error.message);

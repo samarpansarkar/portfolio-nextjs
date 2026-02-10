@@ -2,7 +2,7 @@ import porjectReducer from "@/redux/slices/ProjectSlice";
 import skillsReducer from "@/redux/slices/skillSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
-const store = () => {
+const makeStore = () => {
   return configureStore({
     reducer: {
       projects: porjectReducer,
@@ -12,4 +12,4 @@ const store = () => {
   });
 };
 
-export default store;
+export default makeStore;
