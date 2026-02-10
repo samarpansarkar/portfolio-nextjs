@@ -1,12 +1,12 @@
 import { dbConnect } from "@/db/dbConnect";
-import projects from "@/models/projects";
+import Projects from "@/models/projects";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   await dbConnect();
 
   try {
-    const projectData = await projects.find();
+    const projectData = await Projects.find();
     return NextResponse.json({ data: projectData }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
@@ -23,7 +23,7 @@ export async function POST() {
   await dbConnect();
 
   const body = await req.json();
-  const project = await projects.create(body);
+  const project = await Projects.create(body);
 
   return NextResponse.json({ data: project }, { status: 201 });
 }
