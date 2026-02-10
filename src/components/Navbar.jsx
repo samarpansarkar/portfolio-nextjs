@@ -1,6 +1,7 @@
 "use client";
+import { useTheme } from "@/contexts/ThemeContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LuHouse,
   LuLightbulb,
@@ -16,6 +17,7 @@ import {
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
     { path: "/", label: "Home", icon: <LuHouse size={20} /> },
@@ -37,10 +39,14 @@ const Navbar = () => {
     },
   ];
 
-  const [theme, setTheme] = useState("dark");
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "glass-nav py-3" : "py-5"}`}

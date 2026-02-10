@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import StoreProvider from "@/redux/StoreProvider";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,22 +18,27 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Samarpan Sarkar || ReactJS developer",
   description:
-    "Hi, I'm Samarpan Sarkar. I am a Frontend engineer experience in Reactjs, tailwindCSS, Redux, HTML, CSS, JavaScript.",
+    "Portfolio of Samarpan Sarkar, a Frontend Engineer specializing in React, Tailwind CSS, and modern web technologies.",
+  keywords:
+    "Samarpan Sarkar, Frontend Engineer, React Developer, Web Developer, Portfolio",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col relative`}
-      >
-        <StoreProvider>
-          <Navbar />
-          <main className="grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
-            {children}
-          </main>
-        </StoreProvider>
-      </body>
+      <ThemeProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col relative`}
+        >
+          <StoreProvider>
+            <Toaster position="bottom-center" reverseOrder={false} />
+            <Navbar />
+            <main className="grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full">
+              {children}
+            </main>
+          </StoreProvider>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
