@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { IoNewspaperOutline } from "react-icons/io5";
 
-const resume = () => {
+const Resume = () => {
   return (
     <div className="border w-48 h-12 border-[#00000095] hover:border-[#9956C4] relative left-0 md:left-6 rounded-full visible group hover:text-white ease-in-out overflow-hidden md:top-0 top-6">
       <Link
@@ -23,4 +23,4 @@ const resume = () => {
     </div>
   );
 };
-export default resume;
+export default Resume;
