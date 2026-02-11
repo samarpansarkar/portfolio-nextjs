@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans, Press_Start_2P, VT323 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import BackToTop from "@/components/BackToTop";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -107,6 +108,7 @@ export default function RootLayout({ children }) {
         <StoreProvider>
           <Toaster position='bottom-center' reverseOrder={false} />
           <Analytics />
+          <SpeedInsights />
           <Navbar />
           <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
             {children}
