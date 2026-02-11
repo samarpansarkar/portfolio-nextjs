@@ -1,210 +1,125 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { LuHouse, LuPlay, LuRotateCcw } from "react-icons/lu";
+import { LuHouse, LuPlay } from "react-icons/lu";
+import SnakeGame from "./components/SnakeGame";
+import PongGame from "./components/PongGame";
+import BreakoutGame from "./components/BreakoutGame";
+import TetrisGame from "./components/TetrisGame";
+import MemoryGame from "./components/MemoryGame";
+import SpaceInvadersGame from "./components/SpaceInvadersGame";
+import FlappyGame from "./components/FlappyGame";
+import WhacAMoleGame from "./components/WhacAMoleGame";
 
-const SnakeGame = () => {
-    const canvasRef = useRef(null);
-    const [score, setScore] = useState(0);
-    const [gameOver, setGameOver] = useState(false);
-    const [gameStarted, setGameStarted] = useState(false);
-    const gameLoopRef = useRef(null);
+const ArcadePage = () => {
+    const [activeGame, setActiveGame] = useState(null);
+    const gameContainerRef = useRef(null);
 
-    useEffect(() => {
-        if (!gameStarted) return;
+    const games = [
+        { id: "snake", name: "SNAKE", emoji: "🐍", description: "Classic snake game", component: SnakeGame },
+        { id: "tetris", name: "TETRIS", emoji: "🔷", description: "Block stacking puzzle", component: TetrisGame },
+        { id: "pong", name: "PONG", emoji: "🏓", description: "vs CPU paddle battle", component: PongGame },
+        { id: "invaders", name: "INVADERS", emoji: "👾", description: "Shoot the aliens", component: SpaceInvadersGame },
+        { id: "flappy", name: "FLAPPY", emoji: "🐦", description: "Navigate through pipes", component: FlappyGame },
+        { id: "memory", name: "MEMORY", emoji: "🃏", description: "Match card pairs", component: MemoryGame },
+        { id: "whack", name: "WHACK", emoji: "🐹", description: "Click the moles", component: WhacAMoleGame },
+        { id: "breakout", name: "BREAKOUT", emoji: "🧱", description: "Break all bricks", component: BreakoutGame },
+    ];
 
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        const gridSize = 20;
-        const tileCount = canvas.width / gridSize;
+    const handlePlayGame = async (gameId) => {
+        setActiveGame(gameId);
 
-        let snake = [{ x: 10, y: 10 }];
-        let velocity = { x: 0, y: 0 };
-        let food = { x: 15, y: 15 };
-        let currentScore = 0;
-
-        const drawGame = () => {
-            if (gameOver) return;
-
-            ctx.fillStyle = "#0a0e27";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00f0ff";
-            snake.forEach((segment, index) => {
-                if (index === 0) {
-                    ctx.fillStyle = "#ff006e";
-                } else {
-                    ctx.fillStyle = "#00f0ff";
-                }
-                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
-            });
-
-            ctx.fillStyle = "#ffbe0b";
-            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
-
-            const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
-
-            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-                setGameOver(true);
-                return;
-            }
-
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    setGameOver(true);
-                    return;
+        setTimeout(async () => {
+            if (gameContainerRef.current) {
+                try {
+                    if (gameContainerRef.current.requestFullscreen) {
+                        await gameContainerRef.current.requestFullscreen();
+                    } else if (gameContainerRef.current.webkitRequestFullscreen) {
+                        await gameContainerRef.current.webkitRequestFullscreen();
+                    } else if (gameContainerRef.current.mozRequestFullScreen) {
+                        await gameContainerRef.current.mozRequestFullScreen();
+                    } else if (gameContainerRef.current.msRequestFullscreen) {
+                        await gameContainerRef.current.msRequestFullscreen();
+                    }
+                } catch (err) {
+                    console.error("Fullscreen error:", err);
                 }
             }
-
-            snake.unshift(head);
-
-            if (head.x === food.x && head.y === food.y) {
-                currentScore += 10;
-                setScore(currentScore);
-                food = {
-                    x: Math.floor(Math.random() * tileCount),
-                    y: Math.floor(Math.random() * tileCount),
-                };
-            } else {
-                snake.pop();
-            }
-        };
-
-        const handleKeyPress = (e) => {
-            switch (e.key) {
-                case "ArrowUp":
-                    if (velocity.y === 0) velocity = { x: 0, y: -1 };
-                    break;
-                case "ArrowDown":
-                    if (velocity.y === 0) velocity = { x: 0, y: 1 };
-                    break;
-                case "ArrowLeft":
-                    if (velocity.x === 0) velocity = { x: -1, y: 0 };
-                    break;
-                case "ArrowRight":
-                    if (velocity.x === 0) velocity = { x: 1, y: 0 };
-                    break;
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyPress);
-        gameLoopRef.current = setInterval(drawGame, 100);
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyPress);
-            if (gameLoopRef.current) clearInterval(gameLoopRef.current);
-        };
-    }, [gameStarted, gameOver]);
-
-    const startGame = () => {
-        setGameOver(false);
-        setScore(0);
-        setGameStarted(true);
+        }, 100);
     };
 
-    const resetGame = () => {
-        setGameOver(false);
-        setScore(0);
-        setGameStarted(false);
+    const handleExitGame = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+        setActiveGame(null);
     };
+
+    const GameComponent = activeGame ? games.find(g => g.id === activeGame)?.component : null;
 
     return (
-        <div className="min-h-screen flex items-center justify-center py-12">
-            <div className="w-full max-w-4xl space-y-8">
-                <div className="text-center space-y-4">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 pixel-border bg-bg-secondary">
-                        <div className="w-2 h-2 bg-phosphor-green animate-blink"></div>
-                        <span className="font-pixel text-xs text-phosphor-green">RETRO ARCADE</span>
-                    </div>
-
-                    <h1 className="font-pixel text-3xl md:text-5xl text-gradient animate-glow-pulse">
-                        SNAKE GAME
-                    </h1>
-
-                    <div className="flex justify-center gap-8">
-                        <div className="pixel-border-pink px-6 py-3 bg-bg-secondary">
-                            <p className="font-terminal text-accent-secondary text-xs">SCORE</p>
-                            <p className="font-pixel text-2xl text-phosphor-green">{score}</p>
+        <div className="min-h-screen flex items-center justify-center py-12 px-4">
+            {!activeGame ? (
+                <div className="w-full max-w-4xl space-y-8">
+                    <div className="text-center space-y-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 pixel-border bg-bg-secondary">
+                            <div className="w-2 h-2 bg-phosphor-green animate-blink"></div>
+                            <span className="font-pixel text-xs text-phosphor-green">RETRO ARCADE</span>
                         </div>
-                        <div className="pixel-border-yellow px-6 py-3 bg-bg-secondary">
-                            <p className="font-terminal text-accent-tertiary text-xs">HIGH SCORE</p>
-                            <p className="font-pixel text-2xl text-accent-tertiary">999</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div className="flex justify-center">
-                    <div className="crt-frame inline-block">
-                        <div className="crt-screen relative">
-                            <canvas
-                                ref={canvasRef}
-                                width={400}
-                                height={400}
-                                className="pixel-art"
-                            />
+                        <h1 className="font-pixel text-3xl md:text-5xl text-gradient animate-glow-pulse">
+                            GAME CENTER
+                        </h1>
 
-                            {!gameStarted && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-bg-primary/90 backdrop-blur-sm">
-                                    <button
-                                        onClick={startGame}
-                                        className="retro-btn flex items-center gap-2 hover:scale-105 transition-transform"
-                                    >
-                                        <LuPlay size={16} />
-                                        <span>START GAME</span>
-                                    </button>
-                                </div>
-                            )}
+                        <p className="font-terminal text-sm text-text-secondary">
+                            Click PLAY to launch game in fullscreen • Press ESC to exit
+                        </p>
 
-                            {gameOver && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center bg-bg-primary/90 backdrop-blur-sm space-y-6">
-                                    <div className="text-center space-y-2">
-                                        <p className="font-pixel text-2xl text-accent-secondary animate-blink">GAME OVER</p>
-                                        <p className="font-terminal text-xl text-phosphor-green">SCORE: {score}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                            {games.map((game) => (
+                                <div
+                                    key={game.id}
+                                    className="group relative bg-bg-secondary border-3 border-accent-primary/30 hover:border-accent-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-accent-primary/30"
+                                >
+                                    <div className="p-6 space-y-4">
+                                        <div className="text-6xl transform group-hover:scale-110 transition-transform text-center">
+                                            {game.emoji}
+                                        </div>
+                                        <div className="text-center space-y-2">
+                                            <h3 className="font-pixel text-base text-text-primary group-hover:text-accent-primary transition-colors">
+                                                {game.name}
+                                            </h3>
+                                            <p className="font-terminal text-xs text-text-secondary">
+                                                {game.description}
+                                            </p>
+                                        </div>
+                                        <button
+                                            onClick={() => handlePlayGame(game.id)}
+                                            className="w-full retro-btn flex items-center justify-center gap-2 hover:scale-105 transition-transform"
+                                        >
+                                            <LuPlay size={16} />
+                                            <span>PLAY</span>
+                                        </button>
                                     </div>
-                                    <button
-                                        onClick={resetGame}
-                                        className="retro-btn flex items-center gap-2 hover:scale-105 transition-transform"
-                                    >
-                                        <LuRotateCcw size={16} />
-                                        <span>PLAY AGAIN</span>
-                                    </button>
                                 </div>
-                            )}
+                            ))}
                         </div>
                     </div>
-                </div>
 
-                <div className="pixel-border p-6 bg-bg-secondary/50 backdrop-blur-sm">
-                    <h3 className="font-pixel text-sm text-accent-primary mb-4">HOW TO PLAY</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-terminal text-sm text-text-secondary">
-                        <div className="text-center space-y-2">
-                            <div className="text-2xl">↑</div>
-                            <div>UP</div>
-                        </div>
-                        <div className="text-center space-y-2">
-                            <div className="text-2xl">↓</div>
-                            <div>DOWN</div>
-                        </div>
-                        <div className="text-center space-y-2">
-                            <div className="text-2xl">←</div>
-                            <div>LEFT</div>
-                        </div>
-                        <div className="text-center space-y-2">
-                            <div className="text-2xl">→</div>
-                            <div>RIGHT</div>
-                        </div>
+                    <div className="flex justify-center">
+                        <Link href="/" className="retro-btn flex items-center gap-2">
+                            <LuHouse size={16} />
+                            <span>BACK TO HOME</span>
+                        </Link>
                     </div>
                 </div>
-
-                <div className="flex justify-center">
-                    <Link href="/" className="retro-btn flex items-center gap-2">
-                        <LuHouse size={16} />
-                        <span>BACK TO HOME</span>
-                    </Link>
+            ) : (
+                <div ref={gameContainerRef} className="w-full h-screen bg-black flex items-center justify-center">
+                    {GameComponent && <GameComponent onExit={handleExitGame} />}
                 </div>
-            </div>
+            )}
         </div>
     );
 };
 
-export default SnakeGame;
+export default ArcadePage;
