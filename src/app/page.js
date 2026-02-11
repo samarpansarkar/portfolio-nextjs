@@ -237,8 +237,8 @@ const Home = () => {
               <div className='absolute -top-4 -right-4 font-pixel text-xs bg-accent-tertiary text-bg-primary px-3 py-2 rounded pixel-border-yellow animate-glow-pulse'>
                 ⭐ ELITE
               </div>
-              <div className='absolute -bottom-4 -left-4 font-terminal text-sm bg-phosphor-green text-bg-primary px-3 py-2 rounded pixel-border animate-bounce'>
-                9+ YRS XP
+              <div className='absolute bottom-4 left-4 font-terminal text-sm bg-phosphor-green text-bg-primary px-3 py-2 rounded pixel-border animate-bounce'>
+                span
               </div>
             </div>
           </div>
