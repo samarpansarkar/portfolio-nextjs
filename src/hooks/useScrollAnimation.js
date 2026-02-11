@@ -11,7 +11,6 @@ export const useScrollAnimation = (options = {}) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Once visible, keep it visible
           if (options.once) {
             observer.unobserve(entry.target);
           }

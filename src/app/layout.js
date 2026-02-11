@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/contexts/ThemeContext";
 import StoreProvider from "@/redux/StoreProvider";
 import { Plus_Jakarta_Sans, Press_Start_2P, VT323 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -90,27 +89,25 @@ export const metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code", // Add your verification code
+    google: "your-google-verification-code",
   },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <ThemeProvider>
-        <body
-          className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} antialiased min-h-screen flex flex-col relative starfield`}>
-          <StoreProvider>
-            <Toaster position='bottom-center' reverseOrder={false} />
-            <Analytics />
-            <Navbar />
-            <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
-              {children}
-            </main>
-            <BackToTop />
-          </StoreProvider>
-        </body>
-      </ThemeProvider>
+      <body
+        className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} antialiased min-h-screen flex flex-col relative starfield`}>
+        <StoreProvider>
+          <Toaster position='bottom-center' reverseOrder={false} />
+          <Analytics />
+          <Navbar />
+          <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
+            {children}
+          </main>
+          <BackToTop />
+        </StoreProvider>
+      </body>
     </html>
   );
 }

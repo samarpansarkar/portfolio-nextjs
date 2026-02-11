@@ -2,39 +2,6 @@
 @import "tailwindcss";
 
 :root {
-  /* 90s Retro Arcade Color Palette */
-  --bg-primary: #0a0e27;
-  --bg-secondary: #1a1a2e;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --accent-primary: #00f0ff; /* Neon Cyan */
-  --accent-secondary: #ff006e; /* Electric Pink */
-  --accent-tertiary: #ffbe0b; /* Arcade Yellow */
-  --phosphor-green: #33ff33; /* CRT Terminal Green */
-
-  /* Retro UI Colors */
-  --card-bg: rgba(26, 26, 46, 0.85);
-  --nav-bg: rgba(10, 14, 39, 0.95);
-  --glass-border: rgba(0, 240, 255, 0.3);
-  --pixel-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
-
-  /* Gradients */
-  --gradient-text: linear-gradient(135deg, #00f0ff, #ff006e, #ffbe0b);
-  --gradient-bg:
-    radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.1), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1), transparent 50%),
-    #0a0e27;
-  --neon-glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
-  --neon-glow-pink: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 30px #ff006e;
-
-  /* Fonts */
-  --font-pixel: "Press Start 2P", cursive;
-  --font-terminal: "VT323", monospace;
-  --font-retro: "Pixelify Sans", cursive;
-}
-
-[data-theme="dark"] {
-  /* Keeping same retro theme - it's already dark! */
   --bg-primary: #0a0e27;
   --bg-secondary: #1a1a2e;
   --text-primary: #ffffff;
@@ -43,9 +10,23 @@
   --accent-secondary: #ff006e;
   --accent-tertiary: #ffbe0b;
   --phosphor-green: #33ff33;
+
   --card-bg: rgba(26, 26, 46, 0.85);
   --nav-bg: rgba(10, 14, 39, 0.95);
   --glass-border: rgba(0, 240, 255, 0.3);
+  --pixel-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+
+  --gradient-text: linear-gradient(135deg, #00f0ff, #ff006e, #ffbe0b);
+  --gradient-bg:
+    radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.1), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1), transparent 50%),
+    #0a0e27;
+  --neon-glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+  --neon-glow-pink: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 30px #ff006e;
+
+  --font-pixel: "Press Start 2P", cursive;
+  --font-terminal: "VT323", monospace;
+  --font-retro: "Pixelify Sans", cursive;
 }
 
 body {
@@ -58,7 +39,6 @@ body {
   line-height: 1.6;
 }
 
-/* CRT Screen Effect Overlay */
 body::before {
   content: "";
   position: fixed;
@@ -78,7 +58,6 @@ body::before {
   animation: scanline 8s linear infinite;
 }
 
-/* Scanline Animation */
 @keyframes scanline {
   0% {
     transform: translateY(0);
@@ -88,7 +67,6 @@ body::before {
   }
 }
 
-/* CRT Flicker Effect */
 @keyframes crt-flicker {
   0% {
     opacity: 0.97;
@@ -102,7 +80,6 @@ body::before {
 }
 
 @layer utilities {
-  /* Retro Glass Effect with Pixel Borders */
   .glass {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -114,7 +91,6 @@ body::before {
     image-rendering: pixelated;
   }
 
-  /* Arcade Cabinet Style - Heavy Border */
   .glass-heavy {
     background: var(--nav-bg);
     backdrop-filter: blur(15px);
@@ -123,7 +99,6 @@ body::before {
     box-shadow: var(--pixel-shadow), var(--neon-glow-cyan);
   }
 
-  /* Navigation with Retro Style */
   .glass-nav {
     background: var(--nav-bg);
     backdrop-filter: blur(12px);
@@ -132,7 +107,6 @@ body::before {
     box-shadow: 0 4px 0 rgba(0, 240, 255, 0.3);
   }
 
-  /* Neon Text Gradient */
   .text-gradient {
     background: var(--gradient-text);
     -webkit-background-clip: text;
@@ -141,7 +115,6 @@ body::before {
     text-shadow: var(--neon-glow-cyan);
   }
 
-  /* CRT Monitor Frame */
   .crt-frame {
     position: relative;
     border-radius: 20px;
@@ -154,7 +127,6 @@ body::before {
       var(--pixel-shadow);
   }
 
-  /* CRT Screen Curvature Effect */
   .crt-screen {
     position: relative;
     overflow: hidden;
@@ -163,7 +135,6 @@ body::before {
     animation: crt-flicker 4s infinite;
   }
 
-  /* Pixel Perfect Borders */
   .pixel-border {
     border: 4px solid var(--accent-primary);
     box-shadow: var(--pixel-shadow);
@@ -180,7 +151,6 @@ body::before {
     box-shadow: 4px 4px 0px rgba(255, 190, 11, 0.5);
   }
 
-  /* Neon Glow Effects */
   .neon-glow-cyan {
     text-shadow: var(--neon-glow-cyan);
     color: var(--accent-primary);
@@ -191,7 +161,6 @@ body::before {
     color: var(--accent-secondary);
   }
 
-  /* Pixelated Image Rendering */
   .pixel-art {
     image-rendering: -moz-crisp-edges;
     image-rendering: -webkit-crisp-edges;
@@ -199,7 +168,6 @@ body::before {
     image-rendering: crisp-edges;
   }
 
-  /* Retro Button Styles */
   .retro-btn {
     font-family: var(--font-pixel);
     font-size: 0.75rem;
@@ -226,7 +194,6 @@ body::before {
     box-shadow: none;
   }
 
-  /* Arcade Score Display */
   .score-display {
     font-family: var(--font-terminal);
     font-size: 1.5rem;
@@ -235,7 +202,6 @@ body::before {
     letter-spacing: 0.1em;
   }
 
-  /* Retro Card */
   .retro-card {
     background: var(--card-bg);
     border: 3px solid var(--accent-primary);
@@ -253,7 +219,6 @@ body::before {
     border-color: var(--accent-secondary);
   }
 
-  /* Pixel Animations */
   .animate-blink {
     animation: blink 1s steps(2, start) infinite;
   }
@@ -285,7 +250,6 @@ body::before {
     animation: glowPulse 2s ease-in-out infinite;
   }
 
-  /* Starfield Background Pattern */
   .starfield {
     background-image:
       radial-gradient(2px 2px at 20px 30px, white, transparent),
@@ -299,7 +263,6 @@ body::before {
   }
 }
 
-/* Keyframes for Retro Animations */
 @keyframes blink {
   0%,
   49% {
@@ -357,7 +320,6 @@ body::before {
   }
 }
 
-/* Insert Coin Blink */
 @keyframes insertCoin {
   0%,
   49% {
@@ -373,7 +335,6 @@ body::before {
   animation: insertCoin 1.5s ease-in-out infinite;
 }
 
-/* Typography Helpers */
 .font-pixel {
   font-family: var(--font-pixel);
   line-height: 1.8;
@@ -389,7 +350,6 @@ body::before {
   font-family: var(--font-retro);
 }
 
-/* Accessibility - Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -404,7 +364,6 @@ body::before {
   }
 }
 
-/* Responsive Font Sizes for Pixel Font */
 @media (max-width: 768px) {
   .font-pixel {
     font-size: 0.65rem;

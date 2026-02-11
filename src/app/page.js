@@ -80,16 +80,13 @@ const Home = () => {
 
   return (
     <div className='flex flex-col md:flex-row items-center justify-between min-h-[calc(100vh-100px)] gap-8'>
-      {/* LEFT SECTION - Hero Content */}
       <div className='w-full md:w-1/2 space-y-6 text-center md:text-left animate-slide-up-pixel'>
-        {/* INSERT COIN Blink */}
         <div className='text-center md:text-left mb-4'>
           <span className='font-pixel text-sm md:text-base text-accent-secondary insert-coin'>
             ▶ INSERT COIN ◀
           </span>
         </div>
 
-        {/* Arcade Title Box */}
         <div className='pixel-border p-6 bg-bg-secondary/90 backdrop-blur-sm'>
           <div className='space-y-3'>
             <p className='font-terminal text-accent-primary text-lg md:text-xl tracking-wider'>
@@ -111,7 +108,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* CRT Terminal */}
         <div className='crt-frame'>
           <div className='crt-screen bg-bg-primary p-6'>
             <div className='flex items-center gap-2 mb-4 pb-3 border-b-2 border-phosphor-green/30'>
@@ -132,7 +128,6 @@ const Home = () => {
               )}
             </div>
 
-            {/* XP Bar */}
             <div className='mt-4 pt-4 border-t-2 border-phosphor-green/30'>
               <div className='flex justify-between font-terminal text-xs text-accent-primary mb-1'>
                 <span>XP</span>
@@ -147,7 +142,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Arcade Control Panel - Social Links */}
         <div className='pixel-border-pink p-4 bg-bg-secondary/90 backdrop-blur-sm'>
           <p className='font-pixel text-xs text-center text-accent-secondary mb-3'>
             [ CONNECT ]
@@ -197,23 +191,18 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
         <div className='flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center'>
           <Resume />
           <Github />
         </div>
       </div>
 
-      {/* RIGHT SECTION - Pixel Art Avatar */}
-      <div className='w-full md:w-1/2 mt-8 md:mt-0 flex justify-center md:justify-end relative animate-pixel-fade-in'>
+      <div className='w-full md:w-1/2 md:-mt-40 flex justify-center md:justify-end relative animate-pixel-fade-in'>
         <div className='relative'>
-          {/* Arcade Cabinet Frame */}
           <div className='absolute -inset-6 rounded-3xl bg-linear-to-br from-accent-primary/20 via-accent-secondary/20 to-accent-tertiary/20 blur-2xl animate-glow-pulse'></div>
 
-          {/* Character Display */}
           <div className='relative crt-frame w-72 h-72 md:w-96 md:h-96'>
             <div className='crt-screen h-full flex items-center justify-center bg-bg-primary/50'>
-              {/* Pixel Grid Effect */}
               <div
                 className='absolute inset-0 opacity-10'
                 style={{
@@ -233,17 +222,15 @@ const Home = () => {
                 className='relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-2xl pixel-art pixel-border-pink shadow-neon-pink hover:scale-105 transition-transform duration-300'
               />
 
-              {/* Floating Badges */}
               <div className='absolute -top-4 -right-4 font-pixel text-xs bg-accent-tertiary text-bg-primary px-3 py-2 rounded pixel-border-yellow animate-glow-pulse'>
                 ⭐ ELITE
               </div>
               <div className='absolute bottom-4 left-4 font-terminal text-sm bg-phosphor-green text-bg-primary px-3 py-2 rounded pixel-border animate-bounce'>
-                span
+                Samarpan Sarkar
               </div>
             </div>
           </div>
 
-          {/* Press Start Indicator */}
           <div className='mt-6 text-center'>
             <p className='font-pixel text-sm text-accent-primary insert-coin'>
               ▼ PRESS START ▼

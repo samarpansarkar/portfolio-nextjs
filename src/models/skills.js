@@ -12,7 +12,7 @@ const SkillSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      required: true, // e.g., 'Web Development', 'Languages', 'Tools & Others'
+      required: true,
     },
   },
   { timestamps: true },
