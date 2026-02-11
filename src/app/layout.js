@@ -1,14 +1,29 @@
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import StoreProvider from "@/redux/StoreProvider";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Press_Start_2P, VT323 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import BackToTop from "@/components/BackToTop";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
+  display: "swap",
+});
+
+const pressStart = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-pixel",
+  display: "swap",
+});
+
+const vt323 = VT323({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-terminal",
   display: "swap",
 });
 
@@ -18,7 +33,7 @@ export const metadata = {
     template: "%s | Samarpan Sarkar",
   },
   description:
-    "Portfolio of Samarpan Sarkar, a Full Stack Developer specializing in React, Next.js, Node.js, and modern web technologies. Building innovative digital solutions with premium aesthetics.",
+    "Portfolio of Samarpan Sarkar, a seasoned Full Stack Developer with 9+ years of experience. Specializing in React, Next.js, Node.js, and modern web technologies. Step into a retro gaming-inspired experience showcasing professional expertise.",
   keywords: [
     "Samarpan Sarkar",
     "Full Stack Developer",
@@ -84,7 +99,7 @@ export default function RootLayout({ children }) {
     <html lang='en' suppressHydrationWarning>
       <ThemeProvider>
         <body
-          className={`${jakarta.variable} antialiased min-h-screen flex flex-col relative`}>
+          className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} antialiased min-h-screen flex flex-col relative starfield`}>
           <StoreProvider>
             <Toaster position='bottom-center' reverseOrder={false} />
             <Analytics />
@@ -92,6 +107,7 @@ export default function RootLayout({ children }) {
             <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
               {children}
             </main>
+            <BackToTop />
           </StoreProvider>
         </body>
       </ThemeProvider>

@@ -1,26 +1,20 @@
-import Link from "next/link";
-import { IoNewspaperOutline } from "react-icons/io5";
+"use client";
 
 const Resume = () => {
   return (
-    <div className="border w-48 h-12 border-[#00000095] hover:border-[#9956C4] relative left-0 md:left-6 rounded-full visible group hover:text-white ease-in-out overflow-hidden md:top-0 top-6">
-      <Link
-        className=""
-        href="https://drive.google.com/file/d/1nVjeKEwI7_mwI2yjjrGizuEnCPT_aZN5/view?usp=sharing"
-      >
-        <div className="md:w-42 w-40 bg-linear-to-t from-[#6002b8bb] to-[#a858b3] h-24 absolute md:left-16 left-20 rotate-90 origin-bottom-right group-hover:rotate-0 transition-all duration-500 ease-out group-hover:rounded-full group-hover:scale-150 md:group-hover:translate-x-16 group-hover:translate-x-12 group-hover:w-64 group-hover:translate-y-0"></div>
-        <div className="md:w-48 md:h-12 border-[#d1d5db8f] rounded-full flex justify-evenly transition-all duration-300 md:top-0 relative top-0">
-          <div className="md:pt-3 md:pl-1 z-20 pt-3">
-            <IoNewspaperOutline size={20} />
-          </div>
-          <div>
-            <h1 className="text-left align-middle text-xl font-semibold font-rubix pt-1.5 relative top-0.5 md:pr-2">
-              View Resume
-            </h1>
-          </div>
-        </div>
-      </Link>
-    </div>
+    <a
+      href="/resume/Samarpan_Sarkar_Resume.pdf"
+      download
+      className="retro-btn group relative overflow-hidden"
+    >
+      <span className="relative z-10 flex items-center gap-2">
+        <span>📄</span>
+        <span>DOWNLOAD CV</span>
+      </span>
+      {/* Pixel Shimmer Effect */}
+      <div className="absolute inset-0 bg-linear-to-r from-transparent via-accent-primary/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+    </a>
   );
 };
+
 export default Resume;

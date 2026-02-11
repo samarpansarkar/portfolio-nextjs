@@ -1,22 +1,21 @@
-import Link from "next/link";
-import { LuGithub } from "react-icons/lu";
+"use client";
 
 const Github = () => {
   return (
-    <Link
-      className="w-36 border border-black h-12 z-10 fixed bottom-6 md:bottom-10 rounded-l-full -right-1 flex justify-start hover:bg-[#3d373d] hover:text-[#ffffff] transition-all duration-200 active:bg-zinc-300"
+    <a
       href="https://github.com/samarpansarkar"
       target="_blank"
+      rel="noopener noreferrer"
+      className="font-pixel text-xs px-6 py-3 border-4 border-accent-secondary bg-bg-primary text-accent-secondary hover:bg-accent-secondary hover:text-bg-primary shadow-pixel transition-all duration-200 hover:translate-x-1 hover:translate-y-1 active:translate-x-2 active:translate-y-2 active:shadow-none uppercase group relative overflow-hidden"
     >
-      <div className="h-fit p-2.5 pt-3">
-        <LuGithub size={24} />
-      </div>
-      <div>
-        <h1 className="text-left align-middle text-2xl font-semibold font-rubix pt-1.5 relative top-0.5">
-          Github
-        </h1>
-      </div>
-    </Link>
+      <span className="relative z-10 flex items-center gap-2">
+        <span>🎮</span>
+        <span>VIEW GITHUB</span>
+      </span>
+      {/* Pixel Shimmer Effect */}
+      <div className="absolute inset-0 bg-linear-to-r from-transparent via-accent-secondary/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+    </a>
   );
 };
+
 export default Github;

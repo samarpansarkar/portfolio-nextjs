@@ -1,6 +1,6 @@
 "use client";
 
-import { BackToTop } from "@/components/BackToTop";
+import BackToTop from "@/components/BackToTop";
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { LuMail, LuPhone, LuSend } from "react-icons/lu";

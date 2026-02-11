@@ -1,5 +1,5 @@
 "use client"
-import { BackToTop } from "@/components/BackToTop";
+import BackToTop from "@/components/BackToTop";
 import { CollapsibleSkillCategory } from "@/components/CollapsibleSkillCategory";
 import { SkeletonCard, SkillsSkeleton } from "@/components/Skeletons";
 import SkillSection from "@/components/SkillSection";

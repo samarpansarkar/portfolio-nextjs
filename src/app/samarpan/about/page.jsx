@@ -1,5 +1,5 @@
 "use client";
-import { BackToTop } from "@/components/BackToTop";
+import BackToTop from "@/components/BackToTop";
 import Experience from "@/components/Experience";
 import GitHubStats from "@/components/GitHubStats";
 import Image from "next/image";

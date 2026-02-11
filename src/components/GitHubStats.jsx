@@ -5,62 +5,115 @@ import { LuGithub, LuGitFork, LuStar } from "react-icons/lu";
 const GitHubStats = ({ username = "samarpansarkar" }) => {
     return (
         <div className="w-full space-y-6">
-            <div className="flex items-center gap-2">
-                <LuGithub className="text-accent-primary" size={24} />
-                <h3 className="text-2xl font-bold text-primary">
-                    GitHub <span className="text-accent-secondary">Activity</span>
-                </h3>
+            {/* Header */}
+            <div className="pixel-border-pink p-4 bg-bg-secondary/90">
+                <div className="flex items-center justify-center gap-3">
+                    <LuGithub className="text-accent-primary animate-glow-pulse" size={28} />
+                    <h3 className="font-pixel text-lg text-gradient">
+                        GITHUB STATS
+                    </h3>
+                </div>
             </div>
 
-            {/* GitHub Stats Grid */}
+            {/* Stats Grid - Arcade Dashboard Style */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Repos Card */}
-                <div className="glass border border-primary/10 rounded-lg p-6 hover:border-accent-primary/50 transition-all group">
-                    <div className="flex items-center justify-between mb-3">
-                        <LuGithub className="text-accent-primary group-hover:scale-110 transition-transform" size={32} />
-                        <span className="text-xs text-secondary font-mono">public</span>
+                <div className="retro-card p-6 group">
+                    <div className="flex items-center justify-between mb-4">
+                        <LuGithub
+                            className="text-accent-primary group-hover:scale-110 group-hover:rotate-12 transition-transform"
+                            size={36}
+                        />
+                        <span className="font-terminal text-xs text-phosphor-green">
+                            [REPOS]
+                        </span>
                     </div>
-                    <div className="space-y-1">
-                        <p className="text-3xl font-bold text-primary font-mono">15+</p>
-                        <p className="text-sm text-secondary">Public Repositories</p>
+                    <div className="space-y-2">
+                        <p className="font-terminal text-5xl text-accent-primary score-display">
+                            15+
+                        </p>
+                        <p className="font-pixel text-xs text-text-secondary">
+                            PUBLIC REPOS
+                        </p>
+                    </div>
+                    {/* Pixel Progress Bar */}
+                    <div className="mt-4 h-2 pixel-border bg-bg-primary">
+                        <div
+                            className="h-full bg-accent-primary animate-glow-pulse"
+                            style={{ width: "75%" }}
+                        ></div>
                     </div>
                 </div>
 
                 {/* Stars Card */}
-                <div className="glass border border-primary/10 rounded-lg p-6 hover:border-accent-primary/50 transition-all group">
-                    <div className="flex items-center justify-between mb-3">
-                        <LuStar className="text-yellow-400 group-hover:scale-110 transition-transform" size={32} />
-                        <span className="text-xs text-secondary font-mono">stars</span>
+                <div className="retro-card p-6 group">
+                    <div className="flex items-center justify-between mb-4">
+                        <LuStar
+                            className="text-accent-tertiary group-hover:scale-110 group-hover:rotate-12 transition-transform"
+                            size={36}
+                        />
+                        <span className="font-terminal text-xs text-phosphor-green">
+                            [STARS]
+                        </span>
                     </div>
-                    <div className="space-y-1">
-                        <p className="text-3xl font-bold text-primary font-mono">20+</p>
-                        <p className="text-sm text-secondary">Stars Earned</p>
+                    <div className="space-y-2">
+                        <p className="font-terminal text-5xl text-accent-tertiary score-display">
+                            20+
+                        </p>
+                        <p className="font-pixel text-xs text-text-secondary">
+                            STARS EARNED
+                        </p>
+                    </div>
+                    {/* Pixel Progress Bar */}
+                    <div className="mt-4 h-2 pixel-border bg-bg-primary">
+                        <div
+                            className="h-full bg-accent-tertiary animate-glow-pulse"
+                            style={{ width: "60%" }}
+                        ></div>
                     </div>
                 </div>
 
                 {/* Forks Card */}
-                <div className="glass border border-primary/10 rounded-lg p-6 hover:border-accent-primary/50 transition-all group">
-                    <div className="flex items-center justify-between mb-3">
-                        <LuGitFork className="text-accent-secondary group-hover:scale-110 transition-transform" size={32} />
-                        <span className="text-xs text-secondary font-mono">forks</span>
+                <div className="retro-card p-6 group">
+                    <div className="flex items-center justify-between mb-4">
+                        <LuGitFork
+                            className="text-accent-secondary group-hover:scale-110 group-hover:rotate-12 transition-transform"
+                            size={36}
+                        />
+                        <span className="font-terminal text-xs text-phosphor-green">
+                            [FORKS]
+                        </span>
                     </div>
-                    <div className="space-y-1">
-                        <p className="text-3xl font-bold text-primary font-mono">10+</p>
-                        <p className="text-sm text-secondary">Project Forks</p>
+                    <div className="space-y-2">
+                        <p className="font-terminal text-5xl text-accent-secondary score-display">
+                            10+
+                        </p>
+                        <p className="font-pixel text-xs text-text-secondary">
+                            PROJECT FORKS
+                        </p>
+                    </div>
+                    {/* Pixel Progress Bar */}
+                    <div className="mt-4 h-2 pixel-border bg-bg-primary">
+                        <div
+                            className="h-full bg-accent-secondary animate-glow-pulse"
+                            style={{ width: "50%" }}
+                        ></div>
                     </div>
                 </div>
             </div>
 
-            {/* GitHub Profile Link */}
+            {/* GitHub Profile Link - Arcade Button */}
             <a
                 href={`https://github.com/${username}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 glass border border-primary/10 hover:border-accent-primary/50 rounded-lg text-primary hover:text-accent-primary transition-all group"
+                className="retro-btn w-full text-center block"
             >
-                <LuGithub className="group-hover:rotate-12 transition-transform" size={20} />
-                <span className="font-medium">View GitHub Profile</span>
-                <span className="text-secondary">→</span>
+                <span className="flex items-center justify-center gap-3">
+                    <LuGithub size={20} />
+                    <span>VIEW GITHUB PROFILE</span>
+                    <span>→</span>
+                </span>
             </a>
         </div>
     );
