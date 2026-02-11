@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
+  LuGamepad2,
   LuHouse,
   LuLightbulb,
   LuLock,
@@ -22,6 +23,11 @@ const Navbar = () => {
       path: "/samarpan/skills&projects",
       icon: <LuLightbulb size={16} />,
       label: "SKILLS",
+    },
+    {
+      path: "/arcade",
+      icon: <LuGamepad2 size={16} />,
+      label: "ARCADE",
     },
     {
       path: "/samarpan/contact",
