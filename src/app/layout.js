@@ -56,7 +56,7 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-nextjs-pi-tawny.vercel.app/",
+    url: "https://samarpansarkar.vercel.app/",
     title: "Samarpan Sarkar | Full Stack Developer",
     description:
       "Full Stack Developer specializing in React, Next.js, and modern web technologies. View my projects and get in touch!",
