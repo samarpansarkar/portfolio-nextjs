@@ -235,6 +235,39 @@ const Home = () => {
             <p className='font-pixel text-sm text-accent-primary insert-coin'>
               ▼ PRESS START ▼
             </p>
+
+            <div className='mt-8 flex justify-center gap-3 items-center relative h-12'>
+              <div
+                className='w-3 h-3 bg-accent-primary animate-bounce'
+                style={{
+                  animationDelay: "0ms",
+                  animationDuration: "1.5s",
+                }}></div>
+              <div
+                className='w-3 h-3 bg-accent-secondary animate-bounce'
+                style={{
+                  animationDelay: "150ms",
+                  animationDuration: "1.5s",
+                }}></div>
+              <div
+                className='w-3 h-3 bg-accent-tertiary animate-bounce'
+                style={{
+                  animationDelay: "300ms",
+                  animationDuration: "1.5s",
+                }}></div>
+              <div
+                className='w-3 h-3 bg-phosphor-green animate-bounce'
+                style={{
+                  animationDelay: "450ms",
+                  animationDuration: "1.5s",
+                }}></div>
+              <div
+                className='w-3 h-3 bg-accent-primary animate-bounce'
+                style={{
+                  animationDelay: "600ms",
+                  animationDuration: "1.5s",
+                }}></div>
+            </div>
           </div>
         </div>
       </div>
