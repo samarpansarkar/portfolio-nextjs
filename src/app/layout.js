@@ -55,7 +55,7 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://samarpansarkar.vercel.app",
+    url: "https://portfolio-nextjs-pi-tawny.vercel.app/",
     title: "Samarpan Sarkar | Full Stack Developer",
     description:
       "Full Stack Developer specializing in React, Next.js, and modern web technologies. View my projects and get in touch!",
@@ -96,6 +96,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <meta
+          name='google-site-verification'
+          content='Rjh6mIo-MO-Fc1RFDKc3zUHyyFGxQcUAj-lwahFJ3Kw'
+        />
+      </head>
       <body
         className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} antialiased min-h-screen flex flex-col relative starfield`}>
         <StoreProvider>
