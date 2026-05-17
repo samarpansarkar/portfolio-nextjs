@@ -58,6 +58,15 @@ const AdminDashboard = () => {
   const [modalMode, setModalMode] = useState("add"); // "add" or "edit"
   const [currentId, setCurrentId] = useState(null);
 
+  // Confirmation Modal State
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    title: "",
+    message: "",
+    actionType: "",
+    onConfirm: null,
+  });
+
   // Form States - Projects
   const [projectForm, setProjectForm] = useState({
     name: "",
@@ -126,9 +135,39 @@ const AdminDashboard = () => {
     setIsModalOpen(true);
   };
 
-  // Submit Handler
-  const handleFormSubmit = async (e) => {
+  // Form Submit Trigger Handler
+  const handleFormSubmitTrigger = (e) => {
     e.preventDefault();
+
+    // Quick client validation
+    if (modalType === "project") {
+      if (!projectForm.name || !projectForm.image || !projectForm.category || !projectForm.stack || !projectForm.githubLink || !projectForm.liveLink) {
+        toast.error("👾 Please fill in all required fields!");
+        return;
+      }
+    } else {
+      if (!skillForm.name || !skillForm.icon || !skillForm.category) {
+        toast.error("👾 Please fill in all required fields!");
+        return;
+      }
+    }
+
+    const title = modalMode === "add" ? "🎮 CREATE SEQUENCE 🎮" : "⚡ UPDATE SEQUENCE ⚡";
+    const message = modalMode === "add"
+      ? `DO YOU WANT TO INITIALIZE & CREATE THIS NEW ${modalType.toUpperCase()}?`
+      : `DO YOU WANT TO COMPILE & OVERWRITE THIS EXISTING ${modalType.toUpperCase()}?`;
+
+    setConfirmModal({
+      isOpen: true,
+      title,
+      message,
+      actionType: modalMode === "add" ? "create" : "update",
+      onConfirm: () => executeFormSubmit(),
+    });
+  };
+
+  // Actual Form Submit Execution
+  const executeFormSubmit = async () => {
     const loadingToast = toast.loading("👾 Saving data...");
 
     try {
@@ -163,10 +202,19 @@ const AdminDashboard = () => {
     }
   };
 
-  // Delete Handler
-  const handleDelete = async (type, id) => {
-    if (!window.confirm(`👾 Warning: Are you sure you want to delete this ${type}?`)) return;
+  // Delete Action Trigger Handler
+  const handleDeleteTrigger = (type, id) => {
+    setConfirmModal({
+      isOpen: true,
+      title: "💥 ERASE SEQUENCE 💥",
+      message: `ARE YOU SURE YOU WANT TO PERMANENTLY ERASE THIS ${type.toUpperCase()}?`,
+      actionType: "delete",
+      onConfirm: () => executeDelete(type, id),
+    });
+  };
 
+  // Actual Delete Execution
+  const executeDelete = async (type, id) => {
     const loadingToast = toast.loading("💥 Erasing data...");
     try {
       if (type === "project") {
@@ -302,7 +350,7 @@ const AdminDashboard = () => {
                         <LuPencil size={12} /> EDIT
                       </button>
                       <button
-                        onClick={() => handleDelete("project", proj._id)}
+                        onClick={() => handleDeleteTrigger("project", proj._id)}
                         className='flex-1 py-2 font-pixel text-xxs border-2 border-accent-secondary bg-bg-secondary text-accent-secondary hover:bg-accent-secondary hover:text-bg-primary transition-all flex justify-center items-center gap-1.5 cursor-pointer'
                       >
                         <LuTrash2 size={12} /> DELETE
@@ -348,7 +396,7 @@ const AdminDashboard = () => {
                         <LuPencil size={10} />
                       </button>
                       <button
-                        onClick={() => handleDelete("skill", skill._id)}
+                        onClick={() => handleDeleteTrigger("skill", skill._id)}
                         className='flex-1 py-1 text-center font-pixel text-xxs border border-accent-secondary bg-bg-secondary text-accent-secondary hover:bg-accent-secondary hover:text-bg-primary transition-all flex justify-center items-center cursor-pointer'
                         title='Delete Skill'
                       >
@@ -384,7 +432,7 @@ const AdminDashboard = () => {
                   </button>
                 </div>
 
-                <form onSubmit={handleFormSubmit} className='space-y-4'>
+                <form onSubmit={handleFormSubmitTrigger} className='space-y-4'>
                   {modalType === "project" ? (
                     <>
                       <div className='space-y-1'>
@@ -519,6 +567,48 @@ const AdminDashboard = () => {
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dynamic Confirmation Modal Popup */}
+      {confirmModal.isOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-bg-primary/95 backdrop-blur-md p-4'>
+          <div className='w-full max-w-md relative'>
+            <div className='absolute -inset-2 bg-accent-tertiary rounded-2xl blur-md opacity-60 animate-glow-pulse'></div>
+            
+            <div className='relative crt-frame'>
+              <div className='crt-screen bg-bg-secondary p-6 text-center space-y-6'>
+                <div className='pb-3 border-b-2 border-accent-tertiary/20 flex justify-center items-center gap-2'>
+                  <span className='w-2 h-2 rounded bg-accent-tertiary animate-ping'></span>
+                  <h3 className='font-pixel text-xs md:text-sm text-accent-tertiary uppercase tracking-widest'>
+                    {confirmModal.title}
+                  </h3>
+                </div>
+
+                <p className='font-terminal text-sm md:text-base text-text-primary tracking-wide leading-relaxed uppercase py-4'>
+                  {confirmModal.message}
+                </p>
+
+                <div className='flex gap-4 pt-2'>
+                  <button
+                    onClick={() => {
+                      if (confirmModal.onConfirm) confirmModal.onConfirm();
+                      setConfirmModal({ ...confirmModal, isOpen: false });
+                    }}
+                    className='flex-1 font-pixel text-xxs p-4 border-4 border-accent-tertiary bg-bg-secondary text-accent-tertiary hover:bg-accent-tertiary hover:text-bg-primary hover:shadow-neon-yellow transition-all cursor-pointer font-bold'
+                  >
+                    ▶ YES, COMPLY
+                  </button>
+                  <button
+                    onClick={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+                    className='flex-1 font-pixel text-xxs p-4 border-4 border-primary/20 bg-bg-secondary text-text-secondary hover:border-accent-secondary hover:text-accent-secondary hover:shadow-neon-pink transition-all cursor-pointer font-bold'
+                  >
+                    ▶ NO, ABORT
+                  </button>
+                </div>
               </div>
             </div>
           </div>
