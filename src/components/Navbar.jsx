@@ -10,12 +10,26 @@ import {
   LuPhone,
   LuUser,
   LuX,
+  LuVolume2,
+  LuVolumeX,
+  LuTv,
+  LuTerminal,
 } from "react-icons/lu";
 import { navbarData } from "@/database/Navbar";
+import { useThemeSettings } from "@/components/ThemeWrapper";
+import { playSound } from "@/utils/sound";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const {
+    soundEnabled,
+    setSoundEnabled,
+    crtEnabled,
+    setCrtEnabled,
+    isTerminalOpen,
+    setIsTerminalOpen,
+  } = useThemeSettings();
 
   const navLinks = navbarData.navLinks;
 
@@ -70,6 +84,8 @@ const Navbar = () => {
                 key={link.path}
                 href={link.path}
                 className="group relative"
+                onMouseEnter={() => playSound("blip", soundEnabled)}
+                onClick={() => playSound("coin", soundEnabled)}
               >
                 <div className="relative px-2.5 py-1.5 bg-bg-secondary border-2 border-accent-primary/30 hover:border-accent-primary transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0">
                   <div className="flex items-center gap-2 font-pixel text-[10px] text-text-secondary group-hover:text-accent-primary transition-colors duration-200">
@@ -85,6 +101,60 @@ const Navbar = () => {
                 <div className="absolute inset-0 bg-accent-primary/20 translate-x-1 translate-y-1 -z-10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </Link>
             ))}
+
+            {/* Separator line */}
+            <div className="w-[2px] h-6 bg-accent-primary/25 mx-2"></div>
+
+            {/* Terminal Drawer switch */}
+            <button
+              onClick={() => setIsTerminalOpen(!isTerminalOpen)}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`p-2 border-2 transition-all duration-200 cursor-pointer ${
+                isTerminalOpen
+                  ? "border-accent-secondary bg-accent-secondary text-bg-primary"
+                  : "border-accent-secondary/40 bg-bg-secondary text-accent-secondary hover:border-accent-secondary hover:text-accent-secondary"
+              }`}
+              title="Toggle Interactive Shell [ ` ]"
+            >
+              <LuTerminal size={12} className={isTerminalOpen ? "animate-blink" : ""} />
+            </button>
+
+            {/* CRT Screen switcher */}
+            <button
+              onClick={() => {
+                setCrtEnabled(!crtEnabled);
+                playSound("coin", soundEnabled);
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`p-2 border-2 transition-all duration-200 cursor-pointer ${
+                crtEnabled
+                  ? "border-accent-primary bg-accent-primary text-bg-primary"
+                  : "border-accent-primary/40 bg-bg-secondary text-accent-primary hover:border-accent-primary hover:text-accent-primary"
+              }`}
+              title="Toggle Retro CRT Scanlines & Curved Screen Mode"
+            >
+              <LuTv size={12} />
+            </button>
+
+            {/* Sound effects switcher */}
+            <button
+              onClick={() => {
+                const target = !soundEnabled;
+                setSoundEnabled(target);
+                if (target) {
+                  playSound("coin", true);
+                }
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`p-2 border-2 transition-all duration-200 cursor-pointer ${
+                soundEnabled
+                  ? "border-accent-tertiary bg-accent-tertiary text-bg-primary"
+                  : "border-accent-tertiary/40 bg-bg-secondary text-accent-tertiary hover:border-accent-tertiary hover:text-accent-tertiary"
+              }`}
+              title="Toggle Sound Effects Synth"
+            >
+              {soundEnabled ? <LuVolume2 size={12} /> : <LuVolumeX size={12} />}
+            </button>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
@@ -118,7 +188,11 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 href={link.path}
-                onClick={() => setNav(false)}
+                onMouseEnter={() => playSound("blip", soundEnabled)}
+                onClick={() => {
+                  playSound("coin", soundEnabled);
+                  setNav(false);
+                }}
                 className="group block"
               >
                 <div className="relative p-4 bg-bg-secondary border-3 border-accent-primary hover:bg-accent-primary hover:border-accent-secondary transition-all duration-200">
@@ -137,6 +211,54 @@ const Navbar = () => {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* Mobile settings panel */}
+          <div className="px-4 py-3 bg-[#0a0f26]/90 border-t-2 border-accent-secondary flex justify-around items-center gap-2 select-none">
+            <button
+              onClick={() => {
+                setIsTerminalOpen(!isTerminalOpen);
+                setNav(false);
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className="flex-1 p-2 border border-accent-secondary text-accent-secondary bg-bg-secondary font-pixel text-[8px] flex items-center justify-center gap-1 hover:scale-105 active:scale-95 transition-transform"
+            >
+              <LuTerminal size={10} />
+              <span>SHELL</span>
+            </button>
+            <button
+              onClick={() => {
+                setCrtEnabled(!crtEnabled);
+                playSound("coin", soundEnabled);
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`flex-1 p-2 border font-pixel text-[8px] flex items-center justify-center gap-1 hover:scale-105 active:scale-95 transition-transform ${
+                crtEnabled
+                  ? "border-accent-primary bg-accent-primary text-bg-primary"
+                  : "border-accent-primary/50 text-accent-primary bg-bg-secondary"
+              }`}
+            >
+              <LuTv size={10} />
+              <span>CRT</span>
+            </button>
+            <button
+              onClick={() => {
+                const target = !soundEnabled;
+                setSoundEnabled(target);
+                if (target) {
+                  playSound("coin", true);
+                }
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`flex-1 p-2 border font-pixel text-[8px] flex items-center justify-center gap-1 hover:scale-105 active:scale-95 transition-transform ${
+                soundEnabled
+                  ? "border-accent-tertiary bg-accent-tertiary text-bg-primary"
+                  : "border-accent-tertiary/50 text-accent-tertiary bg-bg-secondary"
+              }`}
+            >
+              {soundEnabled ? <LuVolume2 size={10} /> : <LuVolumeX size={10} />}
+              <span>SOUND</span>
+            </button>
           </div>
 
           <div className="p-6 bg-bg-secondary border-t-4 border-accent-primary">

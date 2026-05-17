@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import BackToTop from "@/components/BackToTop";
 import { siteMetadata } from "@/database/layout";
+import ThemeWrapper from "@/components/ThemeWrapper";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -48,14 +49,16 @@ export default function RootLayout({ children }) {
       <body
         className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} ${pixelifySans.variable} antialiased min-h-screen flex flex-col relative starfield`}>
         <StoreProvider>
-          <Toaster position='bottom-center' reverseOrder={false} />
-          <Analytics />
-          <SpeedInsights />
-          <Navbar />
-          <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
-            {children}
-          </main>
-          <BackToTop />
+          <ThemeWrapper>
+            <Toaster position='bottom-center' reverseOrder={false} />
+            <Analytics />
+            <SpeedInsights />
+            <Navbar />
+            <main className='grow pt-20 px-4 md:px-8 max-w-7xl mx-auto w-full'>
+              {children}
+            </main>
+            <BackToTop />
+          </ThemeWrapper>
         </StoreProvider>
       </body>
     </html>
