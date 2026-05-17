@@ -5,27 +5,27 @@ html {
 }
 
 :root {
-  --bg-primary: #0a0e27;
-  --bg-secondary: #1a1a2e;
+  --bg-primary: #050505;
+  --bg-secondary: #121212;
   --text-primary: #ffffff;
   --text-secondary: #a0a0a0;
-  --accent-primary: #00f0ff;
-  --accent-secondary: #ff006e;
-  --accent-tertiary: #ffbe0b;
+  --accent-primary: #33ff33;
+  --accent-secondary: #ff3333;
+  --accent-tertiary: #ffb703;
   --phosphor-green: #33ff33;
 
-  --card-bg: rgba(26, 26, 46, 0.85);
-  --nav-bg: rgba(10, 14, 39, 0.95);
-  --glass-border: rgba(0, 240, 255, 0.3);
-  --pixel-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  --card-bg: rgba(18, 18, 18, 0.85);
+  --nav-bg: rgba(5, 5, 5, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --pixel-shadow: 4px 4px 0px rgba(0, 0, 0, 0.85);
 
-  --gradient-text: linear-gradient(135deg, #00f0ff, #ff006e, #ffbe0b);
+  --gradient-text: linear-gradient(135deg, #ffffff, #33ff33, #ff3333);
   --gradient-bg:
-    radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.1), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.1), transparent 50%),
-    #0a0e27;
-  --neon-glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
-  --neon-glow-pink: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 30px #ff006e;
+    radial-gradient(circle at 20% 20%, rgba(51, 255, 51, 0.03), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 51, 51, 0.03), transparent 50%),
+    #050505;
+  --neon-glow-cyan: 0 0 6px rgba(51, 255, 51, 0.3);
+  --neon-glow-pink: 0 0 6px rgba(255, 51, 51, 0.3);
 }
 
 body {
@@ -66,10 +66,10 @@ body.crt-active::after {
   background: radial-gradient(
     circle at center,
     transparent 55%,
-    rgba(0, 10, 20, 0.4) 90%,
+    rgba(0, 0, 0, 0.4) 90%,
     rgba(0, 0, 0, 0.7) 100%
   );
-  box-shadow: inset 0 0 120px rgba(0, 240, 255, 0.15);
+  box-shadow: inset 0 0 80px rgba(51, 255, 51, 0.08);
 }
 
 @keyframes scanline {
@@ -101,7 +101,7 @@ body.crt-active::after {
     border: 3px solid var(--glass-border);
     box-shadow:
       var(--pixel-shadow),
-      inset 0 0 20px rgba(0, 240, 255, 0.1);
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
     image-rendering: pixelated;
   }
 
@@ -117,8 +117,8 @@ body.crt-active::after {
     background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 3px solid var(--accent-primary);
-    box-shadow: 0 4px 0 rgba(0, 240, 255, 0.3);
+    border-bottom: 3px solid var(--glass-border);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
   }
 
   .text-gradient {
@@ -133,11 +133,11 @@ body.crt-active::after {
     position: relative;
     border-radius: 20px;
     padding: 20px;
-    background: linear-gradient(145deg, #1a1a2e, #0a0e27);
-    border: 6px solid #2a2a3e;
+    background: linear-gradient(145deg, #161616, #050505);
+    border: 6px solid #2a2a2a;
     box-shadow:
       inset 0 0 30px rgba(0, 0, 0, 0.5),
-      0 0 40px rgba(0, 240, 255, 0.2),
+      0 0 25px rgba(255, 51, 51, 0.15),
       var(--pixel-shadow);
   }
 
@@ -218,10 +218,10 @@ body.crt-active::after {
 
   .retro-card {
     background: var(--card-bg);
-    border: 3px solid var(--accent-primary);
+    border: 3px solid var(--glass-border);
     box-shadow:
       var(--pixel-shadow),
-      inset 0 0 20px rgba(0, 240, 255, 0.1);
+      inset 0 0 20px rgba(255, 255, 255, 0.05);
     transition: all 0.2s ease;
   }
 
