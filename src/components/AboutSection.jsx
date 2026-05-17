@@ -1,14 +1,13 @@
 "use client";
-import BackToTop from "@/components/BackToTop";
 import Experience from "@/components/Experience";
 import GitHubStats from "@/components/GitHubStats";
 import Image from "next/image";
 import { GoDotFill } from "react-icons/go";
 import { LuUser } from "react-icons/lu";
 
-const About = () => {
+const AboutSection = () => {
   return (
-    <div className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
+    <section id="about" className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
       <div className="flex flex-col md:flex-row gap-12 items-start justify-center">
         <div className="w-full md:w-1/2 space-y-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
           <div className="inline-flex items-center space-x-2 px-4 py-2 glass rounded-full border border-primary/10">
@@ -94,9 +93,8 @@ const About = () => {
       </div>
       <GitHubStats username="samarpansarkar" />
       <Experience />
-      <BackToTop />
-    </div>
+    </section>
   );
 };
 
-export default About;
+export default AboutSection;

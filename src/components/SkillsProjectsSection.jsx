@@ -1,5 +1,4 @@
 "use client"
-import BackToTop from "@/components/BackToTop";
 import { CollapsibleSkillCategory } from "@/components/CollapsibleSkillCategory";
 import { SkeletonCard, SkillsSkeleton } from "@/components/Skeletons";
 import SkillSection from "@/components/SkillSection";
@@ -10,7 +9,7 @@ import { useEffect, useState } from "react";
 import { LuLightbulb } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 
-const SkillsProjects = () => {
+const SkillsProjectsSection = () => {
   const [filter, setFilter] = useState("All");
   const categories = ["All", "Web", "Full Stack"];
 
@@ -49,7 +48,7 @@ const SkillsProjects = () => {
 
   if (sLoading || pLoading) {
     return (
-      <div className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
+      <section id="skills" className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
         <div className="flex items-center gap-2">
           <LuLightbulb className="text-accent-primary" size={32} />
           <h1 className="text-4xl font-bold text-primary">
@@ -71,12 +70,12 @@ const SkillsProjects = () => {
             {[...Array(6)].map((_, i) => <SkeletonCard key={i} />)}
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
+    <section id="skills" className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
       <div className="space-y-12">
         <div className="flex items-center space-x-4">
           <div className="p-3 bg-accent-primary/10 rounded-full">
@@ -187,9 +186,8 @@ const SkillsProjects = () => {
           ))}
         </div>
       </div>
-      <BackToTop />
-    </div>
+    </section>
   );
 };
 
-export default SkillsProjects;
+export default SkillsProjectsSection;

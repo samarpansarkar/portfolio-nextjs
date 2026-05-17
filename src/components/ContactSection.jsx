@@ -1,17 +1,15 @@
 "use client";
 
-import BackToTop from "@/components/BackToTop";
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { LuMail, LuPhone, LuSend } from "react-icons/lu";
 
-const Contact = () => {
+const ContactSection = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState({});
-
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,7 +71,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-100px)] flex items-center justify-center py-12 animate-fade-in-up">
+    <section id="contact" className="min-h-[calc(100vh-100px)] flex items-center justify-center py-12 animate-fade-in-up">
       <div className="w-full max-w-4xl flex flex-col md:flex-row gap-12">
         {/* Contact Info */}
         <div className="w-full md:w-1/2 space-y-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
@@ -179,8 +177,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
-      <BackToTop />
-    </div>
+    </section>
   );
 };
-export default Contact;
+export default ContactSection;

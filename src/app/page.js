@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaXTwitter } from "react-icons/fa6";
 import { LuFacebook, LuInstagram, LuLinkedin } from "react-icons/lu";
+import AboutSection from "@/components/AboutSection";
+import SkillsProjectsSection from "@/components/SkillsProjectsSection";
+import ContactSection from "@/components/ContactSection";
 
 const Home = () => {
   const [showInsertCoin, setShowInsertCoin] = useState(true);
@@ -57,7 +60,7 @@ const Home = () => {
     if (alreadyChecked) return;
     async function checkBackend() {
       try {
-        let res = await API.get("/");
+        let res = await API.get("/api");
         if (res) {
           toast.success("🎮 Backend connection successful!");
           sessionStorage.setItem("backendHealthChecked", "true");
@@ -79,7 +82,8 @@ const Home = () => {
   const { displayText, isComplete } = useTypewriter(terminalText, 30);
 
   return (
-    <div className='flex flex-col md:flex-row items-center justify-between min-h-[calc(100vh-100px)] gap-8'>
+    <>
+      <div className='flex flex-col md:flex-row items-center justify-between min-h-[calc(100vh-100px)] gap-8'>
       <div className='w-full md:w-1/2 space-y-6 text-center md:text-left animate-slide-up-pixel'>
         <div className='text-center md:text-left mb-4'>
           <span className='font-pixel text-sm md:text-base text-accent-secondary insert-coin'>
@@ -271,7 +275,16 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </div>
+      
+      </div>
+      
+      {/* SPA Sections */}
+      <div className='space-y-24 mt-24'>
+        <AboutSection />
+        <SkillsProjectsSection />
+        <ContactSection />
+      </div>
+    </>
   );
 };
 

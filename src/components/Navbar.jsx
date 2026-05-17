@@ -18,9 +18,9 @@ const Navbar = () => {
 
   const navLinks = [
     { path: "/", label: "HOME", icon: <LuHouse size={16} /> },
-    { path: "/samarpan/about", icon: <LuUser size={16} />, label: "ABOUT" },
+    { path: "/#about", icon: <LuUser size={16} />, label: "ABOUT" },
     {
-      path: "/samarpan/skills&projects",
+      path: "/#skills",
       icon: <LuLightbulb size={16} />,
       label: "SKILLS",
     },
@@ -30,7 +30,7 @@ const Navbar = () => {
       label: "ARCADE",
     },
     {
-      path: "/samarpan/contact",
+      path: "/#contact",
       icon: <LuPhone size={16} />,
       label: "CONTACT",
     },
