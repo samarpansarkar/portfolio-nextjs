@@ -410,3 +410,61 @@ body.crt-active::after {
   text-shadow: 0 0 5px var(--phosphor-green);
 }
 
+/* 📺 Dynamic CRT Teleport Glitch Animation */
+.glitch-active {
+  animation: glitch-teleport 0.18s steps(4, end) forwards;
+  pointer-events: none;
+}
+
+@keyframes glitch-teleport {
+  0% {
+    filter: hue-rotate(90deg) contrast(150%) skewX(3deg);
+    transform: scaleY(0.97) scaleX(1.03);
+  }
+  25% {
+    filter: hue-rotate(-90deg) invert(15%) skewX(-3deg);
+    transform: scaleY(1.03) scaleX(0.97);
+    clip-path: inset(10% 0 35% 0);
+  }
+  50% {
+    filter: contrast(180%) brightness(140%) skewX(5deg);
+    transform: scaleY(0.98) scaleX(1.02);
+    clip-path: inset(45% 0 10% 0);
+  }
+  75% {
+    filter: invert(10%) contrast(160%) skewX(-5deg);
+    transform: scaleY(1.02) scaleX(0.98);
+    clip-path: inset(5% 0 50% 0);
+  }
+  100% {
+    filter: none;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+/* 📁 MS-DOS & Win-95 Retro Classic Bevel Borders */
+.win95-bevel {
+  background-color: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #0a0a0a;
+  border-bottom: 2px solid #0a0a0a;
+  box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+}
+
+.win95-bevel-inset {
+  background-color: #ffffff;
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #dfdfdf;
+  border-bottom: 2px solid #dfdfdf;
+  box-shadow: inset 1px 1px 0px #0a0a0a, inset -1px -1px 0px #ffffff;
+}
+
+.win95-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #ffffff;
+}
+
+

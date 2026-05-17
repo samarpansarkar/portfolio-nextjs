@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import TerminalDrawer from "./TerminalDrawer";
 import BiosBootScreen from "./BiosBootScreen";
+import SarkarOS from "./SarkarOS";
 import { playSound } from "@/utils/sound";
 
 // Create context for sharing settings and states globally
@@ -12,6 +13,8 @@ const ThemeSettingsContext = createContext({
   setCrtEnabled: () => {},
   isTerminalOpen: false,
   setIsTerminalOpen: () => {},
+  isDesktopOpen: false,
+  setIsDesktopOpen: () => {},
 });
 
 export const useThemeSettings = () => useContext(ThemeSettingsContext);
@@ -22,11 +25,30 @@ export default function ThemeWrapper({ children }) {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [hasBooted, setHasBooted] = useState(true); // Default to true, load on client mount
   const [isMounted, setIsMounted] = useState(false);
+  const [isGlitching, setIsGlitching] = useState(false);
+  const [isDesktopOpen, setIsDesktopOpen] = useState(false);
 
   // Refs for tracking tactile scrolling and mouse hover memory
   const lastHoveredRef = useRef(null);
   const lastScrollYRef = useRef(0);
   const lastScrollTimeRef = useRef(0);
+
+  // Listen to hashchange page jumps for retro teleportation static
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleHashChange = () => {
+      setIsGlitching(true);
+      playSound("laser", soundEnabled);
+      const timer = setTimeout(() => {
+        setIsGlitching(false);
+      }, 180);
+      return () => clearTimeout(timer);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [isMounted, soundEnabled]);
 
   // Synchronize with sessionStorage and apply CRT body class
   useEffect(() => {
@@ -209,6 +231,8 @@ export default function ThemeWrapper({ children }) {
     setCrtEnabled,
     isTerminalOpen,
     setIsTerminalOpen,
+    isDesktopOpen,
+    setIsDesktopOpen,
   };
 
   // Avoid Hydration mismatch issues by rendering children immediately on SSR, 
@@ -222,12 +246,21 @@ export default function ThemeWrapper({ children }) {
       {!hasBooted ? (
         <BiosBootScreen onComplete={handleBootComplete} soundEnabled={soundEnabled} />
       ) : (
-        <div className="contents">
+        <div className={`contents ${isGlitching ? "glitch-active" : ""}`}>
           {children}
           <TerminalDrawer
             isOpen={isTerminalOpen}
             onClose={() => setIsTerminalOpen(false)}
             soundEnabled={soundEnabled}
+            onLaunchDesktop={() => {
+              setIsTerminalOpen(false);
+              setIsDesktopOpen(true);
+            }}
+          />
+          <SarkarOS 
+            isOpen={isDesktopOpen} 
+            onClose={() => setIsDesktopOpen(false)} 
+            triggerTerminal={() => setIsTerminalOpen(true)}
           />
         </div>
       )}

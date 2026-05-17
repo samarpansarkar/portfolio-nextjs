@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { playSound } from "@/utils/sound";
 import { LuTerminal, LuX } from "react-icons/lu";
 
-const TerminalDrawer = ({ isOpen, onClose, soundEnabled }) => {
+const TerminalDrawer = ({ isOpen, onClose, soundEnabled, onLaunchDesktop }) => {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([
     { text: "=== RETRO PORTFOLIO COMMAND SHELL VER 1.0.0 ===", type: "system" },
@@ -50,12 +50,29 @@ const TerminalDrawer = ({ isOpen, onClose, soundEnabled }) => {
           { text: "  projects     - Print lists of active projects & links", type: "output" },
           { text: "  contact      - Print and auto-copy developer email address", type: "output" },
           { text: "  arcade       - Open the games arcade center", type: "output" },
+          { text: "  desktop      - Boot Sarkar OS Windows-95 Sandbox Desktop 🖥️", type: "output" },
           { text: "  stage select - Print Stage coordinates for quick warping", type: "output" },
           { text: "  secret       - Unlock a hidden legendary operator credential...", type: "output" },
           { text: "  clear        - Clear the terminal screen buffer", type: "output" },
           { text: "  exit         - Close this terminal drawer", type: "output" },
           { text: "  sudo hack    - Execute a secret security protocol...", type: "output" },
         ];
+        break;
+
+      case "desktop":
+      case "sarkaros":
+      case "sarkar os":
+        playSound("power-up", soundEnabled);
+        response = [
+          { text: "🖥️ SARKAR OS v95.01 — BOOT SEQUENCE INITIATED...", type: "system" },
+          { text: "  Loading kernel modules...............[OK]", type: "output" },
+          { text: "  Mounting virtual file system............[OK]", type: "output" },
+          { text: "  Starting GUI desktop environment.......[OK]", type: "output" },
+          { text: "  ✅ SARKAR OS READY. Launching desktop...", type: "success" },
+        ];
+        setTimeout(() => {
+          if (onLaunchDesktop) onLaunchDesktop();
+        }, 900);
         break;
 
       case "clear":
