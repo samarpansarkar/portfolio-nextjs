@@ -15,7 +15,7 @@ const HeroSection = () => {
   const currentXP = Math.round(progressPercent * 98.5); // Scales from 0 to 9850 XP!
 
   return (
-    <section id="#home" className="flex flex-col lg:flex-row items-center justify-center lg:justify-between min-h-[calc(100vh-110px)] gap-6 xl:gap-12 py-3 md:py-6 max-w-7xl mx-auto w-full px-2 sm:px-4">
+    <section id="home" className="flex flex-col lg:flex-row items-center justify-center lg:justify-between min-h-[calc(100vh-110px)] gap-6 xl:gap-12 py-3 md:py-6 max-w-7xl mx-auto w-full px-2 sm:px-4">
 
       {/* LEFT COLUMN: Player Status & Developer Shell Console */}
       <div className="w-full lg:w-[55%] xl:w-[58%] flex flex-col space-y-3 sm:space-y-4 text-center lg:text-left animate-slide-up-pixel justify-center">

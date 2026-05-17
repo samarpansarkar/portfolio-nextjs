@@ -3,8 +3,8 @@ import API from "@/utils/AxiosInstance";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
-import HeroSection from "@/components/HeroSection";
 
+const HeroSection = dynamic(() => import("@/components/HeroSection"));
 const AboutSection = dynamic(() => import("@/components/AboutSection"));
 const SkillsProjectsSection = dynamic(() => import("@/components/SkillsProjectsSection"));
 const ContactSection = dynamic(() => import("@/components/ContactSection"));
