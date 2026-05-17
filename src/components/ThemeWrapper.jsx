@@ -2,7 +2,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import TerminalDrawer from "./TerminalDrawer";
 import BiosBootScreen from "./BiosBootScreen";
-import SarkarOS from "./SarkarOS";
 import { playSound } from "@/utils/sound";
 
 // Create context for sharing settings and states globally
@@ -13,8 +12,8 @@ const ThemeSettingsContext = createContext({
   setCrtEnabled: () => {},
   isTerminalOpen: false,
   setIsTerminalOpen: () => {},
-  isDesktopOpen: false,
-  setIsDesktopOpen: () => {},
+  isFullscreen: false,
+  toggleFullscreen: () => {},
 });
 
 export const useThemeSettings = () => useContext(ThemeSettingsContext);
@@ -26,7 +25,32 @@ export default function ThemeWrapper({ children }) {
   const [hasBooted, setHasBooted] = useState(true); // Default to true, load on client mount
   const [isMounted, setIsMounted] = useState(false);
   const [isGlitching, setIsGlitching] = useState(false);
-  const [isDesktopOpen, setIsDesktopOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Toggle fullscreen helper
+  const toggleFullscreen = () => {
+    try {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.() ||
+          document.documentElement.webkitRequestFullscreen?.();
+      } else {
+        document.exitFullscreen?.() || document.webkitExitFullscreen?.();
+      }
+    } catch (_) {}
+  };
+
+  // Track actual fullscreen state from browser events
+  useEffect(() => {
+    const onFSChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener("fullscreenchange", onFSChange);
+    document.addEventListener("webkitfullscreenchange", onFSChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFSChange);
+      document.removeEventListener("webkitfullscreenchange", onFSChange);
+    };
+  }, []);
 
   // Refs for tracking tactile scrolling and mouse hover memory
   const lastHoveredRef = useRef(null);
@@ -37,7 +61,14 @@ export default function ThemeWrapper({ children }) {
   useEffect(() => {
     if (!isMounted) return;
 
-    const handleHashChange = () => {
+    const handleHashChange = (e) => {
+      // Only glitch when staying on the same page (same pathname), not cross-page nav
+      try {
+        const oldPath = new URL(e.oldURL).pathname;
+        const newPath = new URL(e.newURL).pathname;
+        if (oldPath !== newPath) return;
+      } catch (_) {}
+
       setIsGlitching(true);
       playSound("laser", soundEnabled);
       const timer = setTimeout(() => {
@@ -70,7 +101,6 @@ export default function ThemeWrapper({ children }) {
       setCrtEnabled(active);
       if (active) document.body.classList.add("crt-active");
     } else {
-      // Default to ON for retro vibes!
       setCrtEnabled(true);
       document.body.classList.add("crt-active");
       sessionStorage.setItem("crtEnabled", "true");
@@ -130,7 +160,6 @@ export default function ThemeWrapper({ children }) {
     const handleMouseOver = (e) => {
       const interactive = findInteractiveParent(e.target);
       if (interactive) {
-        // Prevent playing multiple blips for drifting within the same element
         if (lastHoveredRef.current !== interactive) {
           lastHoveredRef.current = interactive;
           playSound("blip", true);
@@ -164,8 +193,6 @@ export default function ThemeWrapper({ children }) {
       const diff = Math.abs(currentY - lastScrollYRef.current);
       const now = Date.now();
 
-      // Trigger scroll mechanical click every 60px of vertical travel
-      // Throttled to a maximum frequency of once per 60ms to prevent browser sound overlapping
       if (diff >= 60 && now - lastScrollTimeRef.current >= 60) {
         playSound("tick", true);
         lastScrollYRef.current = currentY;
@@ -177,11 +204,18 @@ export default function ThemeWrapper({ children }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMounted, soundEnabled]);
 
-  // 3. Global Keyboard Mechanical Sounds (Tab, Enter, Space) and [ ` ] hotkey
+  // 3. Global Keyboard Mechanical Sounds + hotkeys
   useEffect(() => {
     if (!isMounted) return;
 
     const handleKeyDown = (e) => {
+      // F11 fullscreen toggle
+      if (e.key === "F11") {
+        e.preventDefault();
+        toggleFullscreen();
+        return;
+      }
+
       // Backtick [ ` ] key toggles Terminal Drawer
       if (e.key === "`" || e.key === "Backquote") {
         const activeElem = document.activeElement;
@@ -193,19 +227,13 @@ export default function ThemeWrapper({ children }) {
         return;
       }
 
-      // Keyboard feedback triggers when sound is active
       if (!soundEnabled) return;
 
-      // Tab mechanical key step
       if (e.key === "Tab") {
         playSound("blip", true);
-      }
-      // Enter key confirm click
-      else if (e.key === "Enter") {
+      } else if (e.key === "Enter") {
         playSound("coin", true);
-      }
-      // Space key blip (avoid trigger when typing in inputs/textareas)
-      else if (e.key === " ") {
+      } else if (e.key === " ") {
         const active = document.activeElement;
         if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) {
           return;
@@ -218,10 +246,11 @@ export default function ThemeWrapper({ children }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMounted, soundEnabled]);
 
-  // Complete BIOS boot
+  // Complete BIOS boot — redirect to /os (dedicated Sarkar OS page)
   const handleBootComplete = () => {
     setHasBooted(true);
     sessionStorage.setItem("hasBooted", "true");
+    window.location.href = "/os";
   };
 
   const contextValue = {
@@ -231,11 +260,11 @@ export default function ThemeWrapper({ children }) {
     setCrtEnabled,
     isTerminalOpen,
     setIsTerminalOpen,
-    isDesktopOpen,
-    setIsDesktopOpen,
+    isFullscreen,
+    toggleFullscreen,
   };
 
-  // Avoid Hydration mismatch issues by rendering children immediately on SSR, 
+  // Avoid Hydration mismatch issues by rendering children immediately on SSR,
   // but overlaying loader screen only after client-side check.
   if (!isMounted) {
     return <div className="contents">{children}</div>;
@@ -254,13 +283,8 @@ export default function ThemeWrapper({ children }) {
             soundEnabled={soundEnabled}
             onLaunchDesktop={() => {
               setIsTerminalOpen(false);
-              setIsDesktopOpen(true);
+              window.location.href = "/os";
             }}
-          />
-          <SarkarOS 
-            isOpen={isDesktopOpen} 
-            onClose={() => setIsDesktopOpen(false)} 
-            triggerTerminal={() => setIsTerminalOpen(true)}
           />
         </div>
       )}

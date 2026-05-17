@@ -67,6 +67,13 @@ const BiosBootScreen = ({ onComplete, soundEnabled }) => {
     setIsFading(true);
     playSound("power-up", soundEnabled);
 
+    // Request fullscreen on this user gesture — earliest valid opportunity
+    try {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    } catch (_) {}
+
     // Fade out time
     setTimeout(() => {
       onComplete();

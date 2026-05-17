@@ -128,7 +128,7 @@ const TerminalDrawer = ({ isOpen, onClose, soundEnabled, onLaunchDesktop }) => {
         playSound("coin", soundEnabled);
         response = [
           { text: "🎮 LAUNCHING ARCADE INJECTOR...", type: "system" },
-          { text: "  Redirecting to cabinet in 1 second...", type: "system" },
+          { text: "  Redirecting to arcade page in 1 second...", type: "system" },
         ];
         setTimeout(() => {
           window.location.href = "/arcade";

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { LuFileText, LuPaintbrush, LuTrash2, LuTerminal, LuGamepad2, LuFolder, LuX, LuMaximize, LuMinus } from "react-icons/lu";
+import { LuFileText, LuPaintbrush, LuTrash2, LuTerminal, LuGamepad2, LuFolder, LuX, LuMaximize, LuMinus, LuMonitor, LuZap } from "react-icons/lu";
 import { playSound } from "@/utils/sound";
 
 // 🪟 Reusable Draggable Retro Window Container
@@ -91,7 +91,7 @@ const RetroWindow = ({ title, icon: Icon, onClose, children, defaultX = 100, def
   );
 };
 
-export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
+export default function SarkarOS({ isOpen, onClose, triggerTerminal, onEnterPortfolio }) {
   const [activeWin, setActiveWin] = useState(null);
   const [openWins, setOpenWins] = useState({
     readme: false,
@@ -146,7 +146,17 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#008080] z-[9995] font-terminal select-none text-white overflow-hidden flex flex-col justify-between">
+    <div
+      className="fixed inset-0 z-[9995] font-terminal select-none text-white overflow-hidden flex flex-col justify-between"
+      style={{
+        backgroundImage: "url('/winxp_bliss.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Subtle dark overlay so icons & windows stay readable */}
+      <div className="absolute inset-0 bg-black/10 pointer-events-none z-0" />
       
       {/* 🖥️ Desktop Shortcut Grid */}
       <div className="flex-1 p-6 grid grid-flow-col auto-cols-max grid-rows-6 gap-6 justify-start items-start select-none content-start">
@@ -198,6 +208,35 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
         >
           <LuTerminal size={32} className="text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.6)]" />
           <span className="text-xxs font-bold text-white mt-1.5 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)]">SHELL.EXE</span>
+        </div>
+
+        {/* 🖥️ Portfolio / Main Info icon — PRIMARY */}
+        <div
+          onDoubleClick={() => {
+            playSound("power-up", true);
+            if (onEnterPortfolio) onEnterPortfolio();
+          }}
+          onClick={() => playSound("blip", true)}
+          className="flex flex-col items-center justify-center text-center w-20 p-2 cursor-pointer hover:bg-white/10 border-2 border-yellow-300/60 hover:border-yellow-300 active:bg-white/20 transition-all rounded relative"
+        >
+          <LuMonitor size={32} className="text-yellow-300 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.6)]" />
+          <span className="text-xxs font-bold text-yellow-300 mt-1.5 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] text-center leading-tight">PORTFOLIO.EXE</span>
+          <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[7px] font-black px-1 rounded-sm leading-tight">2×CLK</span>
+        </div>
+
+        {/* 🕹️ Arcade Games icon */}
+        <div
+          onDoubleClick={() => {
+            playSound("coin", true);
+            if (onClose) onClose();
+            window.location.href = "/arcade";
+          }}
+          onClick={() => playSound("blip", true)}
+          className="flex flex-col items-center justify-center text-center w-20 p-2 cursor-pointer hover:bg-white/10 border-2 border-pink-400/60 hover:border-pink-400 active:bg-white/20 transition-all rounded relative"
+        >
+          <LuZap size={32} className="text-pink-400 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.6)]" />
+          <span className="text-xxs font-bold text-pink-400 mt-1.5 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.8)] text-center leading-tight">ARCADE.EXE</span>
+          <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-[7px] font-black px-1 rounded-sm leading-tight">2×CLK</span>
         </div>
 
       </div>
@@ -321,9 +360,9 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
             {/* Game Canvas */}
             <div className="relative w-full h-[150px] bg-[#121010] border-2 border-[#808080] overflow-hidden win95-bevel-inset">
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%)] bg-[size:100%_4px] pointer-events-none"></div>
-              {/* Click Target */}
+              {/* Click Target — ping ripple (decorative, also hittable) */}
               <div 
-                onClick={handleTargetClick}
+                onClick={handleTargetHit}
                 className="absolute w-5 h-5 bg-[#ff3333] border border-white cursor-crosshair rounded-full flex items-center justify-center animate-ping"
                 style={{
                   left: `${blasterPos.x}px`,
@@ -396,23 +435,29 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
         </RetroWindow>
       )}
 
-      {/* 🏁 BOTTOM OPERATOR TASKBAR */}
-      <div className="h-10 bg-[#c0c0c0] border-t-2 border-white win95-bevel p-1 flex justify-between items-center text-black z-[9997] select-none">
+      {/* 🏁 BOTTOM OPERATOR TASKBAR — Windows XP Style */}
+      <div
+        className="h-10 border-t-2 border-[#1f5fb5] p-1 flex justify-between items-center text-white z-[9997] select-none relative"
+        style={{ background: "linear-gradient(180deg, #245edb 0%, #1a4ab8 40%, #1a4ab8 60%, #1e57c8 100%)" }}
+      >
         
         <div className="flex items-center gap-1.5 h-full relative">
           
-          {/* Start Menu Button */}
+          {/* Start Menu Button — XP green style */}
           <button 
             onClick={() => {
               playSound("coin", true);
               setStartMenuOpen(!startMenuOpen);
             }}
-            className={`win95-bevel h-full px-2.5 flex items-center gap-1.5 font-bold font-terminal text-xs focus:outline-hidden hover:bg-[#d5d5d5] ${
-              startMenuOpen ? "active:border-inset border-t-2 border-l-2 border-black" : ""
+            className={`h-full px-3 flex items-center gap-1.5 font-bold font-terminal text-xs text-white focus:outline-hidden rounded-r-full transition-all ${
+              startMenuOpen
+                ? "brightness-90"
+                : "hover:brightness-110"
             }`}
+            style={{ background: "linear-gradient(180deg, #5aad3c 0%, #3a8a1e 50%, #2d7015 100%)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.4)" }}
           >
-            <span className="text-red-600 font-extrabold font-pixel text-xs animate-glow-pulse">🚩</span>
-            <span>Start</span>
+            <span className="text-white font-extrabold font-pixel text-xs">⊞</span>
+            <span className="font-bold tracking-wide">start</span>
           </button>
 
           {/* Draggable open window tabs indicators inside taskbar */}
@@ -485,6 +530,29 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
               <button 
                 onClick={() => {
                   setStartMenuOpen(false);
+                  playSound("power-up", true);
+                  if (onEnterPortfolio) onEnterPortfolio();
+                }}
+                className="w-full text-left px-3 py-1.5 hover:bg-[#000080] hover:text-white flex items-center gap-2 border-t font-bold text-[#000080]"
+              >
+                <LuMonitor size={12} />
+                <span>My Portfolio</span>
+              </button>
+              <button 
+                onClick={() => {
+                  setStartMenuOpen(false);
+                  playSound("coin", true);
+                  if (onClose) onClose();
+                  window.location.href = "/arcade";
+                }}
+                className="w-full text-left px-3 py-1.5 hover:bg-[#000080] hover:text-white flex items-center gap-2 font-bold text-pink-700"
+              >
+                <LuZap size={12} />
+                <span>Arcade Games</span>
+              </button>
+              <button 
+                onClick={() => {
+                  setStartMenuOpen(false);
                   playSound("laser", true);
                   onClose();
                 }}
@@ -498,8 +566,12 @@ export default function SarkarOS({ isOpen, onClose, triggerTerminal }) {
 
         </div>
 
-        {/* real-time clock tray */}
-        <div className="win95-bevel-inset h-full px-3 flex items-center gap-1.5 font-bold font-terminal text-[10px]">
+        {/* real-time clock tray — XP notification area */}
+        <div
+          className="h-full px-3 flex items-center gap-1.5 font-bold font-terminal text-[10px] text-white border-l border-[#1a4ab8]"
+          style={{ background: "linear-gradient(180deg, #1254b7 0%, #0e47a1 100%)" }}
+        >
+          <span>🔊</span>
           <span>{currentTime}</span>
         </div>
 

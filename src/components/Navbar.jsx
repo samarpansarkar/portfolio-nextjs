@@ -14,6 +14,9 @@ import {
   LuVolumeX,
   LuTv,
   LuTerminal,
+  LuMonitor,
+  LuMaximize2,
+  LuMinimize2,
 } from "react-icons/lu";
 import { navbarData } from "@/database/Navbar";
 import { useThemeSettings } from "@/components/ThemeWrapper";
@@ -29,6 +32,8 @@ const Navbar = () => {
     setCrtEnabled,
     isTerminalOpen,
     setIsTerminalOpen,
+    isFullscreen,
+    toggleFullscreen,
   } = useThemeSettings();
 
   const navLinks = navbarData.navLinks;
@@ -117,6 +122,36 @@ const Navbar = () => {
               title="Toggle Interactive Shell [ ` ]"
             >
               <LuTerminal size={12} className={isTerminalOpen ? "animate-blink" : ""} />
+            </button>
+
+            {/* Sarkar OS return button */}
+            <button
+              onClick={() => {
+                playSound("power-up", soundEnabled);
+                window.location.href = "/os";
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className="p-2 border-2 border-[#c0c0c0]/40 bg-bg-secondary text-[#c0c0c0] hover:border-[#c0c0c0] hover:bg-[#c0c0c0] hover:text-black transition-all duration-200 cursor-pointer"
+              title="Open Sarkar OS Desktop"
+            >
+              <LuMonitor size={12} />
+            </button>
+
+            {/* Fullscreen toggle button */}
+            <button
+              onClick={() => {
+                playSound("coin", soundEnabled);
+                toggleFullscreen();
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className={`p-2 border-2 transition-all duration-200 cursor-pointer ${
+                isFullscreen
+                  ? "border-accent-tertiary bg-accent-tertiary text-bg-primary"
+                  : "border-accent-tertiary/40 bg-bg-secondary text-accent-tertiary hover:border-accent-tertiary hover:text-accent-tertiary"
+              }`}
+              title={isFullscreen ? "Exit Fullscreen [F11]" : "Enter Fullscreen [F11]"}
+            >
+              {isFullscreen ? <LuMinimize2 size={12} /> : <LuMaximize2 size={12} />}
             </button>
 
             {/* CRT Screen switcher */}
@@ -225,6 +260,20 @@ const Navbar = () => {
             >
               <LuTerminal size={10} />
               <span>SHELL</span>
+            </button>
+            {/* Mobile OS return button */}
+            <button
+              onClick={() => {
+                playSound("power-up", soundEnabled);
+                sessionStorage.removeItem("osDismissed");
+                setIsDesktopOpen(true);
+                setNav(false);
+              }}
+              onMouseEnter={() => playSound("blip", soundEnabled)}
+              className="flex-1 p-2 border border-[#c0c0c0]/50 text-[#c0c0c0] bg-bg-secondary font-pixel text-[8px] flex items-center justify-center gap-1 hover:scale-105 active:scale-95 transition-transform"
+            >
+              <LuMonitor size={10} />
+              <span>OS</span>
             </button>
             <button
               onClick={() => {
