@@ -5,7 +5,7 @@ export const fetchProjects = createAsyncThunk(
   "projects/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await API.get("/api/projects");
+      const res = await API.get("/projects");
       return res.data;
     } catch (error) {
       return rejectWithValue(

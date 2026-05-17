@@ -64,7 +64,7 @@ const Home = () => {
     if (alreadyChecked) return;
     async function checkBackend() {
       try {
-        let res = await API.get("/api");
+        let res = await API.get("/");
         if (res) {
           toast.success("🎮 Backend connection successful!");
           sessionStorage.setItem("backendHealthChecked", "true");
