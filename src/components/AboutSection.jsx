@@ -4,6 +4,7 @@ import GitHubStats from "@/components/GitHubStats";
 import Image from "next/image";
 import { GoDotFill } from "react-icons/go";
 import { LuUser } from "react-icons/lu";
+import { aboutData } from "@/database/AboutSection";
 
 const AboutSection = () => {
   return (
@@ -17,25 +18,20 @@ const AboutSection = () => {
 
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Web & Android <br />
+              {aboutData.heading1} <br />
               <span className="bg-linear-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
-                Developer
+                {aboutData.heading2}
               </span>
               <br />
               <span className="text-2xl md:text-3xl font-normal text-secondary">
-                Based in India.
+                {aboutData.heading3}
               </span>
             </h1>
             <div className="h-1 w-24 bg-linear-to-r from-accent-primary to-accent-secondary rounded-full"></div>
           </div>
 
           <p className="text-lg text-secondary leading-relaxed text-justify">
-            I am a Web & Android Developer from Suri, India. Currently
-            freelancing, I dedicate my time to mastering new technologies and
-            adapting to the ever-evolving tech landscape. With a strong passion
-            for innovation and a keen eye for detail, I thrive in collaborative
-            environments and am committed to delivering high-quality, impactful
-            digital solutions.
+            {aboutData.description}
           </p>
 
           <div className="hidden md:block p-4 glass rounded-xl border border-primary/10 hover:border-accent-primary/50 transition-colors">
@@ -53,7 +49,7 @@ const AboutSection = () => {
             <h3 className="text-2xl font-semibold text-primary">Languages</h3>
             <div className="h-0.5 w-full bg-primary/10"></div>
             <ul className="space-y-3">
-              {["English", "Hindi", "Bengali"].map((lang) => (
+              {aboutData.languages.map((lang) => (
                 <li
                   key={lang}
                   className="flex items-center space-x-3 text-secondary hover:text-accent-primary transition-colors"
@@ -69,14 +65,14 @@ const AboutSection = () => {
             <div className="h-0.5 w-full bg-primary/10"></div>
             <div className="flex items-center space-x-3 text-secondary hover:text-accent-primary transition-colors">
               <GoDotFill className="text-accent-secondary" size={12} />
-              <span className="text-lg">Indian</span>
+              <span className="text-lg">{aboutData.nationality}</span>
             </div>
           </div>
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-primary">Hobbies</h3>
             <div className="h-0.5 w-full bg-primary/10"></div>
             <ul className="space-y-3">
-              {["Project Building", "Coding", "Tech Exploration"].map(
+              {aboutData.hobbies.map(
                 (hobby) => (
                   <li
                     key={hobby}
@@ -91,7 +87,7 @@ const AboutSection = () => {
           </div>
         </div>
       </div>
-      <GitHubStats username="samarpansarkar" />
+      <GitHubStats username={aboutData.githubUsername} />
       <Experience />
     </section>
   );

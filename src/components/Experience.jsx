@@ -1,33 +1,9 @@
 "use client";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { experienceData } from "@/database/Experience";
 import { LuBriefcase, LuCalendar, LuGraduationCap } from "react-icons/lu";
 
 const Experience = () => {
-  const experiences = [
-    {
-      id: 1,
-      type: "education",
-      title: "Bachelor of Technology",
-      subtitle: "Computer Science & Engineering",
-      organization: "University Name",
-      date: "2021 - 2025",
-      description:
-        "Focused on Data Structures, Algorithms, and Web Technologies. Maintained a CGPA of 8.5.",
-      icon: <LuGraduationCap size={20} />,
-    },
-    {
-      id: 2,
-      type: "work",
-      title: "Frontend Developer Intern",
-      subtitle: "Tech Company",
-      organization: "Remote",
-      date: "Jan 2024 - Present",
-      description:
-        "Developing responsive web applications using React and Tailwind CSS. Collaborating with cross-functional teams.",
-      icon: <LuBriefcase size={20} />,
-    },
-  ];
-
   const [ref, isVisible] = useScrollAnimation({ threshold: 0.2, once: true });
 
   return (
@@ -43,7 +19,7 @@ const Experience = () => {
       </div>
 
       <div className="relative border-l-2 border-primary/10 ml-4 md:ml-6 space-y-12">
-        {experiences.map((exp, index) => (
+        {experienceData.map((exp, index) => (
           <div
             key={exp.id}
             className={`relative pl-8 md:pl-12 group transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'

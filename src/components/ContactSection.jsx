@@ -3,6 +3,7 @@
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { LuMail, LuPhone, LuSend } from "react-icons/lu";
+import { contactData } from "@/database/ContactSection";
 
 const ContactSection = () => {
   const [name, setName] = useState("");
@@ -43,14 +44,14 @@ const ContactSection = () => {
     setErrors({});
     setStatus("sending");
 
-    const SERVICE_ID = "service_k57rv1a";
-    const TEMPLATE_ID = "template_1fhl5yt";
-    const PUBLIC_KEY = "KGA50qE-Dfc9S-GEq";
+    const SERVICE_ID = contactData.emailjs.SERVICE_ID;
+    const TEMPLATE_ID = contactData.emailjs.TEMPLATE_ID;
+    const PUBLIC_KEY = contactData.emailjs.PUBLIC_KEY;
 
     const templateParams = {
       from_name: name,
       from_email: email,
-      to_name: "samarpan",
+      to_name: contactData.emailjs.to_name,
       message: message,
     };
 
@@ -82,12 +83,11 @@ const ContactSection = () => {
 
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-primary">
-              Le&#39;s Work <br />
-              <span className="text-accent-secondary">Together</span>
+              {contactData.heading1} <br />
+              <span className="text-accent-secondary">{contactData.heading2}</span>
             </h1>
             <p className="text-lg text-secondary">
-              Have a project in mind or just want to say hi? I&#39;d love to
-              hear from you.
+              {contactData.description}
             </p>
           </div>
 
@@ -99,10 +99,10 @@ const ContactSection = () => {
               <div>
                 <p className="text-sm text-secondary">Email me at</p>
                 <a
-                  href="mailto:samarpansarkar2005@gmail.com"
+                  href={`mailto:${contactData.email}`}
                   className="text-lg font-medium text-primary hover:text-accent-primary transition-colors"
                 >
-                  samarpansarkar2005@gmail.com
+                  {contactData.email}
                 </a>
               </div>
             </div>

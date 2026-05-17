@@ -11,35 +11,13 @@ import {
   LuUser,
   LuX,
 } from "react-icons/lu";
+import { navbarData } from "@/database/Navbar";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { path: "/", label: "HOME", icon: <LuHouse size={16} /> },
-    { path: "/#about", icon: <LuUser size={16} />, label: "ABOUT" },
-    {
-      path: "/#skills",
-      icon: <LuLightbulb size={16} />,
-      label: "SKILLS",
-    },
-    {
-      path: "/arcade",
-      icon: <LuGamepad2 size={16} />,
-      label: "ARCADE",
-    },
-    {
-      path: "/#contact",
-      icon: <LuPhone size={16} />,
-      label: "CONTACT",
-    },
-    {
-      path: "/samarpan/admin/login",
-      icon: <LuLock size={16} />,
-      label: "ADMIN",
-    },
-  ];
+  const navLinks = navbarData.navLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,14 +37,14 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-phosphor-green animate-glow-pulse"></div>
             <span className="font-terminal text-phosphor-green text-xs md:text-sm tracking-widest">
-              1UP
+              {navbarData.playerText}
             </span>
           </div>
           <div className="font-terminal text-accent-primary text-xs md:text-sm tracking-widest score-display">
             {scrolled ? "SCROLLING..." : "READY"}
           </div>
           <div className="font-terminal text-accent-tertiary text-xs md:text-sm tracking-widest">
-            HI 999999
+            {navbarData.highScore}
           </div>
         </div>
 
@@ -74,12 +52,12 @@ const Navbar = () => {
           <Link href="/" className="group relative">
             <div className="flex items-center gap-2">
               <div className="font-pixel text-lg md:text-xl text-gradient animate-glow-pulse hover:scale-110 transition-transform duration-200">
-                <span className="text-accent-primary">S</span>
-                <span className="text-accent-secondary">S</span>
+                <span className="text-accent-primary">{navbarData.logoText1}</span>
+                <span className="text-accent-secondary">{navbarData.logoText2}</span>
               </div>
               <div className="hidden md:block">
                 <div className="font-terminal text-phosphor-green text-xs">
-                  DEV.EXE
+                  {navbarData.logoSubtext}
                 </div>
               </div>
             </div>

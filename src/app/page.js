@@ -12,6 +12,7 @@ import AboutSection from "@/components/AboutSection";
 import SkillsProjectsSection from "@/components/SkillsProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Link from "next/link";
+import { heroData } from "@/database/page";
 
 const Home = () => {
   const [showInsertCoin, setShowInsertCoin] = useState(true);
@@ -73,13 +74,7 @@ const Home = () => {
     checkBackend();
   }, []);
 
-  const terminalText = `> INITIALIZING DEVELOPER PROFILE...
-> NAME: SAMARPAN SARKAR
-> ROLE: FULL STACK DEVELOPER
-> STATUS: READY FOR NEW CHALLENGES
-> _`;
-
-  const { displayText, isComplete } = useTypewriter(terminalText, 30);
+  const { displayText, isComplete } = useTypewriter(heroData.terminalText, 30);
 
   return (
     <>
@@ -96,14 +91,11 @@ const Home = () => {
               <p className='font-terminal text-accent-primary text-lg md:text-xl tracking-wider'>
                 === PLAYER 1 START ===
               </p>
-              <h1 className='font-pixel text-3xl md:text-5xl lg:text-6xl neon-glow-cyan leading-relaxed'>
-                SAMARPAN
-                <br />
-                SARKAR
+              <h1 className='font-pixel text-3xl md:text-5xl lg:text-6xl neon-glow-cyan leading-relaxed' dangerouslySetInnerHTML={{ __html: heroData.playerName.replace('\n', '<br />') }}>
               </h1>
               <div className='flex items-center justify-center md:justify-start gap-2 mt-4'>
                 <span className='font-terminal text-phosphor-green text-xl md:text-2xl score-display'>
-                  LVL 9-10
+                  {heroData.level}
                 </span>
                 <span className='font-terminal text-accent-tertiary text-lg'>
                   [ELITE STATUS]
@@ -231,28 +223,7 @@ const Home = () => {
                 [ CONNECT ]
               </p>
               <div className='flex justify-center gap-4'>
-                {[
-                  {
-                    icon: <FaXTwitter size={24} />,
-                    href: "https://x.com/Samarpan_209",
-                    color: "cyan",
-                  },
-                  {
-                    icon: <LuLinkedin size={24} />,
-                    href: "https://www.linkedin.com/in/samarpan-sarkar-",
-                    color: "pink",
-                  },
-                  {
-                    icon: <LuInstagram size={24} />,
-                    href: "https://www.instagram.com/samarpan_209/",
-                    color: "yellow",
-                  },
-                  {
-                    icon: <LuFacebook size={24} />,
-                    href: "https://www.facebook.com/samrpan.sarkar/",
-                    color: "cyan",
-                  },
-                ].map((social, index) => (
+                {heroData.socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.href}
