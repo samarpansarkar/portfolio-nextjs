@@ -96,7 +96,7 @@ const Home = () => {
               <p className='font-terminal text-accent-primary text-lg md:text-xl tracking-wider'>
                 === PLAYER 1 START ===
               </p>
-              <h1 className='font-pixel text-3xl md:text-5xl lg:text-6xl text-gradient animate-glow-pulse leading-relaxed'>
+              <h1 className='font-pixel text-3xl md:text-5xl lg:text-6xl neon-glow-cyan leading-relaxed'>
                 SAMARPAN
                 <br />
                 SARKAR
