@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Pixelify+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 html {
@@ -27,10 +26,6 @@ html {
     #0a0e27;
   --neon-glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
   --neon-glow-pink: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 30px #ff006e;
-
-  --font-pixel: "Press Start 2P", cursive;
-  --font-terminal: "VT323", monospace;
-  --font-retro: "Pixelify Sans", cursive;
 }
 
 body {

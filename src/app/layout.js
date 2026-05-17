@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import StoreProvider from "@/redux/StoreProvider";
-import { Plus_Jakarta_Sans, Press_Start_2P, VT323 } from "next/font/google";
+import { Plus_Jakarta_Sans, Press_Start_2P, VT323, Pixelify_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
@@ -28,6 +28,12 @@ const vt323 = VT323({
   display: "swap",
 });
 
+const pixelifySans = Pixelify_Sans({
+  subsets: ["latin"],
+  variable: "--font-retro",
+  display: "swap",
+});
+
 export const metadata = siteMetadata;
 
 export default function RootLayout({ children }) {
@@ -40,7 +46,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} antialiased min-h-screen flex flex-col relative starfield`}>
+        className={`${jakarta.variable} ${pressStart.variable} ${vt323.variable} ${pixelifySans.variable} antialiased min-h-screen flex flex-col relative starfield`}>
         <StoreProvider>
           <Toaster position='bottom-center' reverseOrder={false} />
           <Analytics />
