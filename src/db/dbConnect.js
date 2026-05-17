@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import dns from "node:dns";
 
-// Fix for Node.js DNS resolution issues on Windows for SRV records
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+// Fix for Node.js DNS resolution issues on local Windows for SRV records
+if (process.env.NODE_ENV !== "production") {
+  dns.setServers(["8.8.8.8", "8.8.4.4"]);
+}
 
 const mongoURL = process.env.MONGO_URL;
 
