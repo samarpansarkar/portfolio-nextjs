@@ -75,47 +75,45 @@ const SkillsProjectsSection = () => {
   }
 
   return (
-    <section id="skills" className="min-h-[calc(100vh-100px)] py-12 space-y-20 animate-fade-in-up">
-      <div className="space-y-12">
+    <section id="skills" className="min-h-[calc(100vh-100px)] py-12 space-y-16 animate-fade-in-up">
+      
+      {/* SECTION 03: Technical Skills */}
+      <div className="space-y-8">
         <div className="flex items-center space-x-4">
-          <div className="p-3 bg-accent-primary/10 rounded-full">
-            <LuLightbulb className="text-accent-primary" size={24} />
+          <div className="inline-flex items-center space-x-2 px-3 py-1.5 pixel-border bg-bg-secondary text-accent-primary font-pixel text-xs">
+            <LuLightbulb className="text-accent-primary animate-glow-pulse" size={14} />
+            <span className="tracking-widest uppercase">STAGE 03 // SKILL MATRIX</span>
           </div>
-          <h2 className="text-4xl font-bold text-primary">
-            Technical <span className="text-accent-secondary">Skills</span>
-          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <SkillSection title="Web Development" skills={webSkills} />
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             <SkillSection title="Languages" skills={languageSkills} />
             <SkillSection title="Tools & Others" skills={toolSkills} />
           </div>
         </div>
       </div>
 
-      <div className="space-y-12">
+      {/* SECTION 04: Featured Projects */}
+      <div className="space-y-8 pt-8 border-t-2 border-phosphor-green/10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center space-x-4">
-            <div className="p-3 bg-accent-secondary/10 rounded-full">
-              <LuLightbulb className="text-accent-secondary" size={24} />
-            </div>
-            <h2 className="text-4xl font-bold text-primary">
-              Featured <span className="text-accent-primary">Projects</span>
-            </h2>
+          <div className="inline-flex items-center space-x-2 px-3 py-1.5 pixel-border bg-bg-secondary text-accent-secondary font-pixel text-xs">
+            <LuLightbulb className="text-accent-secondary" size={14} />
+            <span className="tracking-widest uppercase">STAGE 04 // SYSTEM RELEASES</span>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 select-none">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${filter === cat
-                  ? "bg-accent-primary text-white shadow-lg shadow-accent-primary/25"
-                  : "glass text-secondary hover:bg-accent-primary/10 hover:text-accent-primary border border-primary/10"
-                  }`}
+                className={`px-3 py-1.5 font-pixel text-[10px] transition-all duration-200 cursor-pointer ${
+                  filter === cat
+                    ? "pixel-border bg-accent-primary text-bg-primary"
+                    : "border-2 border-accent-primary/20 bg-bg-secondary text-accent-primary hover:border-accent-primary"
+                }`}
               >
                 {cat}
               </button>
@@ -123,52 +121,64 @@ const SkillsProjectsSection = () => {
           </div>
         </div>
 
+        {/* Dynamic Project Cyber Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((item, index) => (
             <div
               key={item._id}
-              className="group relative rounded-xl overflow-hidden glass border border-primary/10 hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-2 animate-fade-in-up shadow-lg"
+              className="group relative pixel-border bg-bg-secondary/90 hover:shadow-neon-pink hover:border-accent-secondary transition-all duration-300 hover:-translate-y-1.5 animate-fade-in-up flex flex-col justify-between"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="aspect-video overflow-hidden">
+              
+              {/* Virtual CRT Scanline Screen Container */}
+              <div className="aspect-video overflow-hidden relative border-b-2 border-phosphor-green/20">
+                
+                {/* Vector Scanlines overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%),linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,0,0.01),rgba(0,0,255,0.04))] bg-[size:100%_4px,3px_100%] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
+                
                 <Image
                   src={item.image}
                   alt={item.name}
                   loading="lazy"
                   width={500}
                   height={300}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 pixel-art"
                 />
               </div>
 
-              <div className="p-6 space-y-4">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold text-primary group-hover:text-accent-primary transition-colors">
-                    {item.name}
-                  </h3>
-                  <span className="text-xs font-medium px-2 py-1 rounded bg-primary/5 text-secondary">
-                    {item.category}
-                  </span>
-                </div>
-
-                {/* Tech Stack Badges */}
-                <div className="flex flex-wrap gap-2">
-                  {item.stack.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 text-xs font-medium rounded-full glass border border-accent-primary/20 text-accent-primary hover:border-accent-primary/50 hover:bg-accent-primary/10 transition-all"
-                    >
-                      {tech}
+              {/* Dynamic Readout Info */}
+              <div className="p-5 space-y-4 flex-1 flex flex-col justify-between">
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-start gap-2">
+                    <h3 className="font-pixel text-[10px] sm:text-xs text-white group-hover:text-accent-primary transition-colors tracking-wide leading-relaxed">
+                      {item.name}
+                    </h3>
+                    <span className="font-terminal text-[10px] font-bold px-2 py-0.5 border border-accent-tertiary/40 text-accent-tertiary bg-bg-primary uppercase select-none">
+                      {item.category}
                     </span>
-                  ))}
+                  </div>
+
+                  {/* Systems Stack Badges */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {item.stack.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2 py-0.5 font-terminal text-[10px] border border-accent-primary/20 text-phosphor-green bg-bg-primary hover:border-accent-primary transition-all select-none"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex gap-4 pt-2">
+                {/* Cyber Action Triggers */}
+                <div className="flex gap-3 pt-3 border-t border-phosphor-green/10">
                   <a
                     href={item.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center py-2 rounded-lg bg-accent-primary text-white font-medium hover:bg-accent-primary/90 transition-colors"
+                    className="flex-1 text-center py-2 font-pixel text-[9px] border-2 border-accent-primary bg-accent-primary text-bg-primary hover:bg-bg-secondary hover:text-accent-primary transition-all duration-200 uppercase font-bold"
                   >
                     Live Demo
                   </a>
@@ -176,16 +186,19 @@ const SkillsProjectsSection = () => {
                     href={item.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center py-2 rounded-lg border border-primary/20 text-secondary hover:bg-primary/5 hover:text-primary transition-colors"
+                    className="flex-1 text-center py-2 font-pixel text-[9px] border-2 border-accent-secondary bg-bg-secondary text-accent-secondary hover:bg-accent-secondary hover:text-bg-primary transition-all duration-200 uppercase font-bold"
                   >
                     GitHub
                   </a>
                 </div>
+
               </div>
+
             </div>
           ))}
         </div>
       </div>
+
     </section>
   );
 };

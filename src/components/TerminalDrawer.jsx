@@ -46,13 +46,15 @@ const TerminalDrawer = ({ isOpen, onClose, soundEnabled }) => {
         playSound("coin", soundEnabled);
         response = [
           { text: "Available commands:", type: "output" },
-          { text: "  skills     - Display developer languages, frameworks & proficiency", type: "output" },
-          { text: "  projects   - Print lists of active projects & links", type: "output" },
-          { text: "  contact    - Print and auto-copy developer email address", type: "output" },
-          { text: "  arcade     - Open the games arcade center", type: "output" },
-          { text: "  clear      - Clear the terminal screen buffer", type: "output" },
-          { text: "  exit       - Close this terminal drawer", type: "output" },
-          { text: "  sudo hack  - Execute a secret security protocol...", type: "output" },
+          { text: "  skills       - Display developer languages, frameworks & proficiency", type: "output" },
+          { text: "  projects     - Print lists of active projects & links", type: "output" },
+          { text: "  contact      - Print and auto-copy developer email address", type: "output" },
+          { text: "  arcade       - Open the games arcade center", type: "output" },
+          { text: "  stage select - Print Stage coordinates for quick warping", type: "output" },
+          { text: "  secret       - Unlock a hidden legendary operator credential...", type: "output" },
+          { text: "  clear        - Clear the terminal screen buffer", type: "output" },
+          { text: "  exit         - Close this terminal drawer", type: "output" },
+          { text: "  sudo hack    - Execute a secret security protocol...", type: "output" },
         ];
         break;
 
@@ -114,6 +116,35 @@ const TerminalDrawer = ({ isOpen, onClose, soundEnabled }) => {
         setTimeout(() => {
           window.location.href = "/arcade";
         }, 1000);
+        break;
+
+      case "stage":
+      case "stage select":
+        playSound("coin", soundEnabled);
+        response = [
+          { text: "🌐 STAGE COORDINATES RESOLVED:", type: "header" },
+          { text: "  STAGE 01: #home     - Operator Bio & Console Shell", type: "output" },
+          { text: "  STAGE 02: #about    - System Config Readouts & Log", type: "output" },
+          { text: "  STAGE 03: #skills   - Developer Competency Matrix", type: "output" },
+          { text: "  STAGE 04: #contact  - Direct Link channels", type: "output" },
+          { text: "  Type any stage coordinate anchor inside your URL to warp directly!", type: "system" },
+        ];
+        break;
+
+      case "secret":
+      case "1up":
+        playSound("power-up", soundEnabled);
+        response = [
+          { text: "⭐ [ UNLOCKED: 1UP ELITE DEVELOPER BADGE ] ⭐", type: "success" },
+          { text: "   ___________________________________________", type: "output" },
+          { text: "  |                                           |", type: "output" },
+          { text: "  |        [S]  SARKAR / OPERATOR CRED        |", type: "output" },
+          { text: "  |   - STATUS: ELITE CODING CAB OPERATOR     |", type: "output" },
+          { text: "  |   - ACCESS: ALL STAGES GRANTED (9999)     |", type: "output" },
+          { text: "  |___________________________________________|", type: "output" },
+          { text: "  ", type: "output" },
+          { text: "  🏆 CONGRATULATIONS: You solved the cabinet secret!", type: "success" },
+        ];
         break;
 
       case "sudo hack":
