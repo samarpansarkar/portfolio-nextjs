@@ -1,6 +1,7 @@
 import { dbConnect } from "@/db/dbConnect";
 import Projects from "@/models/projects";
 import { NextResponse } from "next/server";
+import { getAuthUser } from "@/utils/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,14 @@ export async function GET() {
 
 export async function POST(request) {
   try {
+    const user = getAuthUser(request);
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     await dbConnect();
 
     const body = await request.json();
