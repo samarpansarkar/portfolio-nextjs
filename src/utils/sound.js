@@ -42,6 +42,16 @@ export const playSound = (type, enabled = true) => {
       osc.stop(now + 0.06);
       break;
 
+    case "tick":
+      // Ultra-short low frequency pulse (mechanical scroll wheel tick)
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(300, now);
+      gain.gain.setValueAtTime(0.008, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
+      osc.start(now);
+      osc.stop(now + 0.02);
+      break;
+
     case "coin":
       // Classic dual-tone retro arpeggio (button click / insert coin)
       osc.type = "square";

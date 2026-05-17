@@ -1,7 +1,8 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import TerminalDrawer from "./TerminalDrawer";
 import BiosBootScreen from "./BiosBootScreen";
+import { playSound } from "@/utils/sound";
 
 // Create context for sharing settings and states globally
 const ThemeSettingsContext = createContext({
@@ -21,6 +22,11 @@ export default function ThemeWrapper({ children }) {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [hasBooted, setHasBooted] = useState(true); // Default to true, load on client mount
   const [isMounted, setIsMounted] = useState(false);
+
+  // Refs for tracking tactile scrolling and mouse hover memory
+  const lastHoveredRef = useRef(null);
+  const lastScrollYRef = useRef(0);
+  const lastScrollTimeRef = useRef(0);
 
   // Synchronize with sessionStorage and apply CRT body class
   useEffect(() => {
@@ -72,10 +78,89 @@ export default function ThemeWrapper({ children }) {
     sessionStorage.setItem("soundEnabled", soundEnabled.toString());
   }, [soundEnabled, isMounted]);
 
-  // Global key listener for terminal toggle (backtick key ` ` `)
+  // Helper: check if element or its parents are interactive
+  const findInteractiveParent = (el) => {
+    let current = el;
+    while (current && current !== document.body) {
+      const tagName = current.tagName;
+      if (tagName === "BUTTON" || tagName === "A" || tagName === "INPUT" || tagName === "TEXTAREA" || tagName === "SELECT") {
+        return current;
+      }
+      if (current.getAttribute && current.getAttribute("role") === "button") {
+        return current;
+      }
+      if (current.classList && (
+        current.classList.contains("cursor-pointer") ||
+        current.classList.contains("retro-btn") ||
+        current.classList.contains("retro-card")
+      )) {
+        return current;
+      }
+      current = current.parentElement;
+    }
+    return null;
+  };
+
+  // 1. Global Click & Hover Sound Listeners
   useEffect(() => {
+    if (!isMounted || !soundEnabled) return;
+
+    const handleMouseOver = (e) => {
+      const interactive = findInteractiveParent(e.target);
+      if (interactive) {
+        // Prevent playing multiple blips for drifting within the same element
+        if (lastHoveredRef.current !== interactive) {
+          lastHoveredRef.current = interactive;
+          playSound("blip", true);
+        }
+      } else {
+        lastHoveredRef.current = null;
+      }
+    };
+
+    const handleClick = (e) => {
+      const interactive = findInteractiveParent(e.target);
+      if (interactive) {
+        playSound("coin", true);
+      }
+    };
+
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("click", handleClick);
+    };
+  }, [isMounted, soundEnabled]);
+
+  // 2. Global Scroll Wheel Tactile Ticks
+  useEffect(() => {
+    if (!isMounted || !soundEnabled) return;
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const diff = Math.abs(currentY - lastScrollYRef.current);
+      const now = Date.now();
+
+      // Trigger scroll mechanical click every 60px of vertical travel
+      // Throttled to a maximum frequency of once per 60ms to prevent browser sound overlapping
+      if (diff >= 60 && now - lastScrollTimeRef.current >= 60) {
+        playSound("tick", true);
+        lastScrollYRef.current = currentY;
+        lastScrollTimeRef.current = now;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMounted, soundEnabled]);
+
+  // 3. Global Keyboard Mechanical Sounds (Tab, Enter, Space) and [ ` ] hotkey
+  useEffect(() => {
+    if (!isMounted) return;
+
     const handleKeyDown = (e) => {
-      // Trigger toggle when backtick (`) is pressed, but ignore when inside input fields
+      // Backtick [ ` ] key toggles Terminal Drawer
       if (e.key === "`" || e.key === "Backquote") {
         const activeElem = document.activeElement;
         if (activeElem && (activeElem.tagName === "INPUT" || activeElem.tagName === "TEXTAREA" || activeElem.isContentEditable)) {
@@ -83,11 +168,33 @@ export default function ThemeWrapper({ children }) {
         }
         e.preventDefault();
         setIsTerminalOpen((prev) => !prev);
+        return;
+      }
+
+      // Keyboard feedback triggers when sound is active
+      if (!soundEnabled) return;
+
+      // Tab mechanical key step
+      if (e.key === "Tab") {
+        playSound("blip", true);
+      }
+      // Enter key confirm click
+      else if (e.key === "Enter") {
+        playSound("coin", true);
+      }
+      // Space key blip (avoid trigger when typing in inputs/textareas)
+      else if (e.key === " ") {
+        const active = document.activeElement;
+        if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.isContentEditable)) {
+          return;
+        }
+        playSound("blip", true);
       }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isMounted, soundEnabled]);
 
   // Complete BIOS boot
   const handleBootComplete = () => {
