@@ -14,7 +14,7 @@ export const navbarData = {
   playerText: "1UP",
   highScore: "HI 999999",
   navLinks: [
-    { path: "/", label: "HOME", icon: <LuHouse size={16} /> },
+    { path: "/#home", label: "HOME", icon: <LuHouse size={16} /> },
     { path: "/#about", icon: <LuUser size={16} />, label: "ABOUT" },
     {
       path: "/#skills",
