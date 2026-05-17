@@ -41,10 +41,6 @@ const Home = () => {
       "color: #33ff33; font-size: 14px; font-family: 'VT323', monospace;",
     );
     console.log(
-      "%c> EXPERIENCE LEVEL: 9-10 YEARS",
-      "color: #ffbe0b; font-size: 14px; font-family: 'VT323', monospace; font-weight: bold;",
-    );
-    console.log(
       "%c> TECH STACK: React | Next.js | Node.js | Full Stack",
       "color: #33ff33; font-size: 14px; font-family: 'VT323', monospace;",
     );
