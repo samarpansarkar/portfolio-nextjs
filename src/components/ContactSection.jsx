@@ -83,28 +83,33 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="min-h-[calc(100vh-100px)] flex items-center justify-center py-12 animate-fade-in-up">
-      <div className="w-full max-w-4xl flex flex-col md:flex-row gap-12">
-        {/* Contact Info */}
-        <div className="w-full md:w-1/2 space-y-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
-          <div className="inline-flex items-center space-x-2 px-4 py-2 glass rounded-full border border-primary/10">
-            <LuPhone className="text-accent-primary" size={18} />
-            <span className="text-sm font-medium text-secondary">Contact</span>
+      <div className="w-full max-w-4xl flex flex-col md:flex-row gap-10">
+        
+        {/* LEFT COLUMN: Stage Identity & Decrypted Channels */}
+        <div className="w-full md:w-1/2 space-y-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
+          
+          {/* Retro Stage Badge */}
+          <div className="inline-flex items-center space-x-2 px-3 py-1.5 pixel-border bg-bg-secondary text-accent-secondary font-pixel text-xs">
+            <LuPhone className="text-accent-secondary animate-glow-pulse" size={14} />
+            <span className="tracking-widest uppercase">STAGE 05 // SECURE SIGNAL</span>
           </div>
 
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary">
+          {/* Title and Decryption Readout */}
+          <div className="space-y-3">
+            <h1 className="font-pixel text-lg sm:text-xl md:text-2xl lg:text-3xl text-white leading-relaxed">
               {contactData.heading1} <br />
-              <span className="text-accent-secondary">{contactData.heading2}</span>
+              <span className="text-accent-primary animate-glow-pulse">{contactData.heading2}</span>
             </h1>
-            <p className="text-lg text-secondary">
+            <p className="font-terminal text-text-secondary text-sm sm:text-base leading-relaxed pl-4 border-l-4 border-accent-secondary/20">
               {contactData.description}
             </p>
           </div>
 
+          {/* Copyable Resource Box */}
           <div className="space-y-6">
-            <div className="flex items-center space-x-4 p-4 glass rounded-xl border border-primary/10 animate-slide-up" style={{ animationDelay: '200ms' }}>
-              <div className="p-3 bg-accent-primary/10 rounded-full">
-                <LuMail className="text-accent-primary" size={24} />
+            <div className="flex items-center space-x-4 p-4 pixel-border bg-bg-secondary/90 hover:shadow-neon-pink hover:border-accent-secondary transition-all duration-300">
+              <div className="p-2 border border-accent-primary/20 text-accent-primary bg-bg-primary">
+                <LuMail className="text-accent-primary" size={20} />
               </div>
               <div 
                 className="relative inline-block"
@@ -114,89 +119,97 @@ const ContactSection = () => {
                   setCopied(false);
                 }}
               >
-                <p className="text-sm text-secondary">Email me at</p>
+                <p className={`font-terminal text-xs tracking-wider font-bold transition-colors duration-150 ${
+                  copied 
+                    ? "text-accent-secondary animate-glow-pulse" 
+                    : isHovered 
+                      ? "text-accent-tertiary" 
+                      : "text-accent-primary"
+                }`}>
+                  {copied 
+                    ? "[ 👾 COPIED TO CLIPBOARD! ]" 
+                    : isHovered 
+                      ? "[ 🎮 CLICK TO COPY ADDRESS ]" 
+                      : "[ ENCRYPTED DIRECTORY ]"
+                  }
+                </p>
                 <button
                   onClick={handleCopyEmail}
-                  className="text-lg font-medium text-primary hover:text-accent-primary transition-colors cursor-pointer block text-left focus:outline-hidden"
+                  className="font-terminal text-base font-bold text-white hover:text-accent-primary transition-colors cursor-pointer block text-left focus:outline-hidden mt-0.5"
                 >
                   {contactData.email}
                 </button>
-                
-                {/* Retro Tooltip */}
-                <span className={`absolute left-0 top-full mt-2 bg-bg-secondary/95 text-text-primary text-xxs px-2.5 py-1 rounded border border-accent-primary/40 font-terminal whitespace-nowrap shadow-lg pointer-events-none z-10 transition-all duration-200 ${
-                  isHovered || copied 
-                    ? "opacity-100 translate-y-0 scale-100" 
-                    : "opacity-0 -translate-y-1 scale-95"
-                }`}>
-                  {copied ? "👾 COPIED TO CLIPBOARD!" : "🎮 CLICK TO COPY"}
-                </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Contact Form */}
+        {/* RIGHT COLUMN: Terminal Transmitter Form */}
         <div className="w-full md:w-1/2 animate-slide-up" style={{ animationDelay: '300ms' }}>
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 glass p-8 rounded-2xl border border-primary/10 backdrop-blur-sm"
+            className="space-y-5 pixel-border-pink p-6 md:p-8 bg-bg-secondary/90 backdrop-blur-sm hover:shadow-neon-pink hover:border-accent-secondary transition-all duration-300"
           >
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-secondary">Name</label>
+            {/* Header Readout */}
+            <div className="border-b border-phosphor-green/20 pb-3 mb-2 font-terminal text-[10px] text-phosphor-green flex justify-between select-none">
+              <span>COMMUNICATION TRANSMITTER</span>
+              <span className="animate-blink">● SYSTEM READY</span>
+            </div>
+
+            {/* Input fields */}
+            <div className="space-y-1.5">
+              <label className="font-terminal text-accent-primary text-xs uppercase tracking-wider font-bold">0x01. YOUR NAME</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={`w-full px-4 py-3 glass border ${errors.name ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors`}
-                placeholder="John Doe"
+                className={`w-full px-4 py-2.5 font-terminal text-sm border-2 ${errors.name ? 'border-red-500' : 'border-phosphor-green/20'} bg-bg-primary text-phosphor-green focus:outline-none focus:border-accent-primary placeholder:text-phosphor-green/30 transition-all font-bold`}
+                placeholder="ENTER VISITOR IDENTITY..."
               />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+              {errors.name && <p className="text-red-500 font-terminal text-xxs mt-1">ERROR: {errors.name}</p>}
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-secondary">
-                Email
-              </label>
+            <div className="space-y-1.5">
+              <label className="font-terminal text-accent-primary text-xs uppercase tracking-wider font-bold">0x02. EMAIL PORT</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={handleEmailChange}
-                className={`w-full px-4 py-3 glass border ${errors.email ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors`}
-                placeholder="john@example.com"
+                className={`w-full px-4 py-2.5 font-terminal text-sm border-2 ${errors.email ? 'border-red-500' : 'border-phosphor-green/20'} bg-bg-primary text-phosphor-green focus:outline-none focus:border-accent-primary placeholder:text-phosphor-green/30 transition-all font-bold`}
+                placeholder="ENTER EMAIL COORDINATES..."
               />
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+              {errors.email && <p className="text-red-500 font-terminal text-xxs mt-1">ERROR: {errors.email}</p>}
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-secondary">
-                Message
-              </label>
+            <div className="space-y-1.5">
+              <label className="font-terminal text-accent-primary text-xs uppercase tracking-wider font-bold">0x03. TRANSMISSION PACKET</label>
               <textarea
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows="4"
-                className={`w-full px-4 py-3 glass border ${errors.message ? 'border-red-500' : 'border-primary/10'} rounded-lg focus:outline-none focus:border-accent-primary text-primary placeholder:text-secondary/50 transition-colors resize-none`}
-                placeholder="Tell me about your project..."
+                className={`w-full px-4 py-2.5 font-terminal text-sm border-2 ${errors.message ? 'border-red-500' : 'border-phosphor-green/20'} bg-bg-primary text-phosphor-green focus:outline-none focus:border-accent-primary placeholder:text-phosphor-green/30 transition-all resize-none font-bold`}
+                placeholder="TYPE RETRO MESSAGES..."
               />
-              {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+              {errors.message && <p className="text-red-500 font-terminal text-xxs mt-1">ERROR: {errors.message}</p>}
             </div>
 
+            {/* Submit Trigger */}
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full py-4 bg-linear-to-r from-accent-primary to-accent-secondary text-white font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full py-3.5 font-pixel text-xs border-2 border-accent-primary bg-accent-primary text-bg-primary hover:bg-bg-secondary hover:text-accent-primary hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 uppercase font-bold flex items-center justify-center space-x-2 disabled:opacity-50 select-none cursor-pointer"
             >
               {status === "sending" ? (
-                <span>Sending...</span>
+                <span className="animate-pulse">TRANSMITTING...</span>
               ) : status === "success" ? (
-                <span>Message Sent!</span>
+                <span>STAGE SUCCESS: MESSAGE SENT!</span>
               ) : (
                 <>
-                  <span>Send Message</span>
-                  <LuSend size={18} />
+                  <span>SEND SIGNAL</span>
+                  <LuSend size={14} />
                 </>
               )}
             </button>
