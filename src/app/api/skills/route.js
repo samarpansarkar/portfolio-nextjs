@@ -3,6 +3,8 @@ import Skills from "@/models/skills";
 
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   await dbConnect();
 

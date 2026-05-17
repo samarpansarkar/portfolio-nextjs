@@ -2,6 +2,8 @@ import { dbConnect } from "@/db/dbConnect";
 import Projects from "@/models/projects";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     await dbConnect();
