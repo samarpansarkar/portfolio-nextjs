@@ -71,6 +71,16 @@ const ContactSection = () => {
       });
   };
 
+  const [copied, setCopied] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(contactData.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section id="contact" className="min-h-[calc(100vh-100px)] flex items-center justify-center py-12 animate-fade-in-up">
       <div className="w-full max-w-4xl flex flex-col md:flex-row gap-12">
@@ -96,14 +106,30 @@ const ContactSection = () => {
               <div className="p-3 bg-accent-primary/10 rounded-full">
                 <LuMail className="text-accent-primary" size={24} />
               </div>
-              <div>
+              <div 
+                className="relative inline-block"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => {
+                  setIsHovered(false);
+                  setCopied(false);
+                }}
+              >
                 <p className="text-sm text-secondary">Email me at</p>
-                <a
-                  href={`mailto:${contactData.email}`}
-                  className="text-lg font-medium text-primary hover:text-accent-primary transition-colors"
+                <button
+                  onClick={handleCopyEmail}
+                  className="text-lg font-medium text-primary hover:text-accent-primary transition-colors cursor-pointer block text-left focus:outline-hidden"
                 >
                   {contactData.email}
-                </a>
+                </button>
+                
+                {/* Retro Tooltip */}
+                <span className={`absolute left-0 top-full mt-2 bg-bg-secondary/95 text-text-primary text-xxs px-2.5 py-1 rounded border border-accent-primary/40 font-terminal whitespace-nowrap shadow-lg pointer-events-none z-10 transition-all duration-200 ${
+                  isHovered || copied 
+                    ? "opacity-100 translate-y-0 scale-100" 
+                    : "opacity-0 -translate-y-1 scale-95"
+                }`}>
+                  {copied ? "👾 COPIED TO CLIPBOARD!" : "🎮 CLICK TO COPY"}
+                </span>
               </div>
             </div>
           </div>
