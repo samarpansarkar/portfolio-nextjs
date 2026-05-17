@@ -22,14 +22,14 @@ export const navbarData = {
       label: "SKILLS",
     },
     {
-      path: "/arcade",
-      icon: <LuGamepad2 size={16} />,
-      label: "ARCADE",
-    },
-    {
       path: "/#contact",
       icon: <LuPhone size={16} />,
       label: "CONTACT",
+    },
+    {
+      path: "/arcade",
+      icon: <LuGamepad2 size={16} />,
+      label: "ARCADE",
     },
     {
       path: "/samarpan/admin/login",
