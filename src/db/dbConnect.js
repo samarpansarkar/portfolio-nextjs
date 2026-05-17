@@ -4,10 +4,7 @@ import dns from "node:dns";
 // Fix for Node.js DNS resolution issues on Windows for SRV records
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
-// const mongoURL = process.env.MONGO_URL;
-const mongoURL = "mongodb+srv://samarpansarkar209:Samarpan@cluster0.6zbj9cw.mongodb.net/?appName=Cluster0"
-
-console.log("MONGO_URL:", mongoURL);
+const mongoURL = process.env.MONGO_URL;
 
 let cached = global.mongoose;
 
