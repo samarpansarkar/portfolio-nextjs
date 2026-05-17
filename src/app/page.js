@@ -8,11 +8,13 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaXTwitter } from "react-icons/fa6";
 import { LuFacebook, LuInstagram, LuLinkedin } from "react-icons/lu";
-import AboutSection from "@/components/AboutSection";
-import SkillsProjectsSection from "@/components/SkillsProjectsSection";
-import ContactSection from "@/components/ContactSection";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { heroData } from "@/database/page";
+
+const AboutSection = dynamic(() => import("@/components/AboutSection"));
+const SkillsProjectsSection = dynamic(() => import("@/components/SkillsProjectsSection"));
+const ContactSection = dynamic(() => import("@/components/ContactSection"));
 
 const Home = () => {
   const [showInsertCoin, setShowInsertCoin] = useState(true);
@@ -117,7 +119,7 @@ const Home = () => {
                 </span>
               </div>
 
-              <div className='font-terminal text-phosphor-green text-sm md:text-base whitespace-pre-wrap'>
+              <div className='font-terminal text-phosphor-green text-sm md:text-base whitespace-pre-wrap min-h-[120px] md:min-h-[140px]'>
                 {displayText}
                 {!isComplete && (
                   <span className='animate-blink text-accent-primary'>█</span>
@@ -165,7 +167,7 @@ const Home = () => {
                   src='/icons/picofme.png'
                   width={280}
                   height={280}
-                  loading='eager'
+                  priority={true}
                   alt='Samarpan Sarkar - Level 9-10 Developer'
                   className='relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-2xl pixel-art pixel-border-pink shadow-neon-pink hover:scale-105 transition-transform duration-300'
                 />

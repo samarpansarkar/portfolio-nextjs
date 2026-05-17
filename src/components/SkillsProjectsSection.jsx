@@ -134,7 +134,7 @@ const SkillsProjectsSection = () => {
                 <Image
                   src={item.image}
                   alt={item.name}
-                  loading="eager"
+                  loading="lazy"
                   width={500}
                   height={300}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
