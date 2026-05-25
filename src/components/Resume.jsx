@@ -3,7 +3,7 @@
 const Resume = () => {
   return (
     <a
-      href="/resume/Samarpan_Sarkar_Resume.pdf"
+      href="/resume/resume.pdf"
       download
       className="retro-btn group relative overflow-hidden"
     >
